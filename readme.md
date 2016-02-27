@@ -11,6 +11,7 @@ shitty readme for my vimconfig
 # quick reference of special bindings
 * windows-style clipboard (ctrl+x|c|v)
     * ctrl+shift+x|c to cut or copy the entire buffer
+* (gvim only) ctrl+l to copy absolute path of current file, then minimize
 * jk in insert mode to leave it
 * <C-p> for recursive filename search
 * <space>u for generic unite
