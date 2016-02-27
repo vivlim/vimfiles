@@ -118,13 +118,13 @@ let g:vimproc#dll_path = $USERPROFILE . '/vimfiles/bin/vimproc_win32.dll'
 nnoremap <space>/ :Unite grep:.<cr>
 
 " Buffers
-nnoremap <space>b :Unite buffer window bookmark -start-insert<cr>
+nnoremap <space>b :Unite buffer window bookmark<cr>
 
 " default unite
-nnoremap <space>u :Unite -start-insert<cr>
+nnoremap <space>u :Unite<cr>
 
 " commands
-nnoremap <space>; :Unite command -start-insert<cr>
+nnoremap <space>; :Unite command<cr>
 
 " airline config
 let g:airline#extensions#tabline#enabled = 1
