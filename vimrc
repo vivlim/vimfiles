@@ -17,6 +17,7 @@ Plugin 'Shougo/unite.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'w0ng/vim-hybrid'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -90,15 +91,6 @@ filetype on
 filetype plugin on
 filetype indent on
 
-if &t_Co >= 256 || has("gui_running")
-   colorscheme mustang
-endif
-
-if &t_Co > 2 || has("gui_running")
-   " switch syntax highlighting on, when the terminal has colors
-   syntax on
-endif
-
 set pastetoggle=<F2>
 nnoremap <leader>< :cpf<cr>
 nnoremap <leader>> :cnf<cr>
@@ -147,5 +139,8 @@ vnoremap <C-c> "+y
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
+
+set background=dark
+colorscheme hybrid
 
 set gfn=Consolas:h11:cANSI
