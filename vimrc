@@ -131,8 +131,8 @@ nnoremap <space>e :VimProcBang explorer .<cr>
 nnoremap <space>c :VimProcBang start<cr>
 
 " windows-style cut,copy,paste
-nnoremap <C-v> "+p
-inoremap <C-v> "+p
+nnoremap <C-v> "+gp
+inoremap <C-v> <esc>"+gpa
 nnoremap <C-x> "+d
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
