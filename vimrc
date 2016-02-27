@@ -112,6 +112,9 @@ let g:unite_source_grep_default_opts =
 \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
 let g:unite_source_grep_recursive_opt = ''
 
+" point vimproc to the dll sitting in /bin
+let g:vimproc#dll_path = $USERPROFILE . '/vimfiles/bin/vimproc_win32.dll'
+
 " Content searching
 nnoremap <space>/ :Unite grep:.<cr>
 
