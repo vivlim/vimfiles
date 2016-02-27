@@ -1,14 +1,15 @@
 shitty readme for my vimconfig
 ==============================
 
-1. clone this
+1. clone this (on linux, clone to .vim instead of vimfiles)
 2. git submodule init
 3. git submodule update
 4. start vim
 5. :PluginInstall
-6. restart vim & you're good to go (if you're on windows. haven't made this work on linux yet (or I did and did not update this readme))
+6. (linux only. prebuilt dll in the git repo for windows vim x86) :VimProcInstall
+7. restart vim & you're good to go (if you're on windows. haven't made this work on linux yet (or I did and did not update this readme))
 
-# quick reference of special bindings
+# quick reference of special bindings & behavior
 * windows-style clipboard (ctrl+x|c|v)
     * ctrl+shift+x|c to cut or copy the entire buffer
 * (gvim only) ctrl+l to copy absolute path of current file, then minimize

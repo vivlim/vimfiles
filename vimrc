@@ -1,9 +1,15 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+if has("win32") || has ("win16")
+    let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
+else
+    let $VIMFILESDIR=$HOME.'/.vim'
+endif
+
 " set the runtime path to include Vundle and initialize
-set rtp+=~/vimfiles/bundle/Vundle.vim/
-call vundle#begin('$USERPROFILE/vimfiles/bundle/')
+set rtp+=$VIMFILESDIR/bundle/Vundle.vim/
+call vundle#begin('$VIMFILESDIR/bundle/')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -111,9 +117,6 @@ let g:unite_source_grep_default_opts =
 \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
 let g:unite_source_grep_recursive_opt = ''
 
-" point vimproc to the dll sitting in /bin
-let g:vimproc#dll_path = $USERPROFILE . '/vimfiles/bin/vimproc_win32.dll'
-
 " Content searching
 nnoremap <space>/ :Unite grep:.<cr>
 
@@ -130,10 +133,16 @@ nnoremap <space>; :Unite command<cr>
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2 " appear immediately, don't wait for a split to be created
 
-" start explorer
-nnoremap <space>e :VimProcBang explorer .<cr>
-" start cmd
-nnoremap <space>c :VimProcBang start<cr>
+" windows-specific settings
+if has("win32") || has ("win16")
+    " point vimproc to the dll sitting in /bin
+    let g:vimproc#dll_path = $USERPROFILE . '/vimfiles/bin/vimproc_win32.dll'
+
+    " start explorer
+    nnoremap <space>e :VimProcBang explorer .<cr>
+    " start cmd
+    nnoremap <space>c :VimProcBang start<cr>
+endif
 
 " windows-style cut,copy,paste
 nnoremap <C-v> "+gp
@@ -154,7 +163,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
+" enable 256 colors on linux & in terminal
+set t_Co=256
+
 set background=dark
 colorscheme hybrid
+let g:airline_theme = "hybrid"
 
 set gfn=Consolas:h11:cANSI
