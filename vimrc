@@ -96,6 +96,11 @@ set pastetoggle=<F2>
 nnoremap <leader>< :cpf<cr>
 nnoremap <leader>> :cnf<cr>
 
+" Set unite default matcher to fuzzy
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" Sort by strength of match, not source
+call unite#custom#profile('files', 'filters', 'sorter_rank')
+
 " File searching like ctrlp.vim
 nnoremap <C-p> :Unite file_rec/async -start-insert<cr>
 let g:unite_source_rec_async_command = [$HOME . '/vimfiles/bin/ag.exe', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
