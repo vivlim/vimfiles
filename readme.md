@@ -13,12 +13,12 @@ shitty readme for my vimconfig
     * ctrl+shift+x|c to cut or copy the entire buffer
 * (gvim only) ctrl+l to copy absolute path of current file, then minimize
 * jk in insert mode to leave it
-* <C-p> for recursive filename search
-* <space>u for generic unite
-* <space>; for excommands
-* <space>/ to recursively grep (Unite)
-* <space>b for buffers/windows/bookmarks
-* <space>e to start explorer
-* <space>c to start cmd
-* <space>n to start NERDtree
+* Ctrl-p for recursive filename search
+* space, u for generic unite
+* space, ; for excommands
+* space, / to recursively grep (Unite)
+* space, b for buffers/windows/bookmarks
+* space, e to start explorer
+* space, c to start cmd
+* space, n to start NERDtree
 * substitutions all have 'g' at end by default
