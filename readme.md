@@ -10,6 +10,7 @@ shitty readme for my vimconfig
 
 # quick reference of special bindings
 * windows-style clipboard (ctrl+x|c|v)
+    * ctrl+shift+x|c to cut or copy the entire buffer
 * jk in insert mode to leave it
 * <C-p> for recursive filename search
 * <space>u for generic unite
@@ -20,4 +21,3 @@ shitty readme for my vimconfig
 * <space>c to start cmd
 * <space>n to start NERDtree
 * substitutions all have 'g' at end by default
-

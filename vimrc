@@ -132,9 +132,14 @@ nnoremap <space>c :VimProcBang start<cr>
 
 " windows-style cut,copy,paste
 nnoremap <C-v> "+p
+inoremap <C-v> "+p
 nnoremap <C-x> "+d
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
+
+" full buffer cut & copy
+nnoremap <C-s-x> :%d+<cr>
+nnoremap <C-s-c> :%y+<cr>
 
 " start nerdtree
 nnoremap <space>n :NERDTreeToggle<cr>
