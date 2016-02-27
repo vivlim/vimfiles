@@ -16,6 +16,7 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'nathanaelkane/vim-indent-guides'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -141,5 +142,10 @@ nnoremap <C-v> "+p
 nnoremap <C-x> "+d
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
+
+" indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 set gfn=Consolas:h11:cANSI
