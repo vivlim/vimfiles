@@ -131,11 +131,12 @@ set laststatus=2 " appear immediately, don't wait for a split to be created
 " start explorer
 nnoremap <space>e :VimProcBang explorer .<cr>
 " start cmd
-nnoremap <space>c :VimProcBang start .<cr>
+nnoremap <space>c :VimProcBang start<cr>
 
 " windows-style cut,copy,paste
 nnoremap <C-v> "+p
 nnoremap <C-x> "+d
 nnoremap <C-c> "+y
+vnoremap <C-c> "+y
 
 set gfn=Consolas:h11:cANSI
