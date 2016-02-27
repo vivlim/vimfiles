@@ -1,4 +1,5 @@
 set nocompatible              " be iMproved, required
+set hidden                    " instead of closing buffers, just hide them.
 filetype off                  " required
 
 if has("win32") || has ("win16")
@@ -142,6 +143,21 @@ if has("win32") || has ("win16")
     nnoremap <space>e :VimProcBang explorer .<cr>
     " start cmd
     nnoremap <space>c :VimProcBang start<cr>
+else
+    " set theme if we aren't on windows, because there are terminals that have 256 color support...
+    " on windows, defer setting this to gvimrc.
+    set t_Co=256
+
+    set background=dark
+    colorscheme hybrid
+    let g:airline_theme = "hybrid"
+
+    " indent guides
+    " these throw an error in cmd vim so just put them here.
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+
 endif
 
 " windows-style cut,copy,paste
@@ -157,17 +173,5 @@ nnoremap <C-s-c> :%y+<cr>
 
 " start nerdtree
 nnoremap <space>n :NERDTreeToggle<cr>
-
-" indent guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
-" enable 256 colors on linux & in terminal
-set t_Co=256
-
-set background=dark
-colorscheme hybrid
-let g:airline_theme = "hybrid"
 
 set gfn=Consolas:h11:cANSI
