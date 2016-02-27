@@ -18,5 +18,6 @@ shitty readme for my vimconfig
 * <space>b for buffers/windows/bookmarks
 * <space>e to start explorer
 * <space>c to start cmd
+* <space>n to start NERDtree
 * substitutions all have 'g' at end by default
 

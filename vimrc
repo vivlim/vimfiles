@@ -18,6 +18,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -134,6 +135,9 @@ nnoremap <C-v> "+p
 nnoremap <C-x> "+d
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
+
+" start nerdtree
+nnoremap <space>n :NERDTreeToggle<cr>
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
