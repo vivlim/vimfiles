@@ -27,6 +27,11 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'scrooloose/nerdtree'
 
+" Windows-only plugins
+if has("win32") || has ("win16")
+    Plugin 'PProvost/vim-ps1'
+endif
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
