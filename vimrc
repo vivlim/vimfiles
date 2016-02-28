@@ -29,6 +29,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+Plugin 'mbbill/undotree'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -181,5 +182,13 @@ nnoremap <C-s-c> :%y+<cr>
 
 " start nerdtree
 nnoremap <space>n :NERDTreeToggle<cr>
+
+" toggle undotree
+nnoremap <s-u> :UndotreeToggle<cr>
+
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
 
 set gfn=Consolas:h11:cANSI

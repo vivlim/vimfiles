@@ -25,3 +25,4 @@ shitty readme for my vimconfig
 * substitutions all have 'g' at end by default
 * [surround-vim](https://github.com/tpope/vim-surround) and all that entails
 * [commentary-vim](https://github.com/tpope/vim-commentary), notably 'gc' to comment the target of a motion
+* shift+u to toggle undotree
