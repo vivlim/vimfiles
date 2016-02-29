@@ -183,6 +183,9 @@ nnoremap <C-s-c> :%y+<cr>
 " start nerdtree
 nnoremap <space>n :NERDTreeToggle<cr>
 
+" git status
+nnoremap <space>g :Gstatus<cr>
+
 " toggle undotree
 nnoremap <s-u> :UndotreeToggle<cr>
 
@@ -194,3 +197,5 @@ endif
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
+
+command UpdateVimConfig :e ~/vimfiles/vimrc|:Gpull|:PluginInstall|:source %

@@ -22,8 +22,10 @@ shitty readme for my vimconfig
 * space, e to start explorer
 * space, c to start cmd
 * space, n to start NERDtree
+* space, g to show git status (using fugitive-vim, only works inside of a git repo.)
 * substitutions all have 'g' at end by default
 * [surround-vim](https://github.com/tpope/vim-surround) and all that entails
 * [commentary-vim](https://github.com/tpope/vim-commentary), notably 'gc' to comment the target of a motion
 * shift+u to toggle undotree
 * (gvim only, in a file with the extension .pasta) enter to copy the current line to the windows clipboard & minimize
+* Add custom command UpdateVimConfig which will pull this stuff to the machine you run it on.
