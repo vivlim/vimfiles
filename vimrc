@@ -199,3 +199,6 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 set shortmess+=I
 
 command UpdateVimConfig :e ~/vimfiles/vimrc|:Gpull|:PluginInstall|:source %
+
+" syntax highlighting
+syntax on
