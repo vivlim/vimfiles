@@ -175,3 +175,5 @@ nnoremap <C-s-c> :%y+<cr>
 nnoremap <space>n :NERDTreeToggle<cr>
 
 set gfn=Consolas:h11:cANSI
+
+autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
