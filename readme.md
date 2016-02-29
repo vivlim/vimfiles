@@ -26,3 +26,4 @@ shitty readme for my vimconfig
 * [surround-vim](https://github.com/tpope/vim-surround) and all that entails
 * [commentary-vim](https://github.com/tpope/vim-commentary), notably 'gc' to comment the target of a motion
 * shift+u to toggle undotree
+* (gvim only, in a file with the extension .pasta) enter to copy the current line to the windows clipboard & minimize
