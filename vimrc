@@ -191,6 +191,6 @@ if has("persistent_undo")
     set undofile
 endif
 
-set gfn=Consolas:h11:cANSI
-
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
+
+set shortmess+=I

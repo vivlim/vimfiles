@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='C:/Users/Mike/3D Objects'
+let g:netrw_dirhist_2='C:\Users\Mike\Documents'
+let g:netrw_dirhist_3='C:/Users/Mike/Documents'
+let g:netrw_dirhist_4='C:\Users\Mike'
+let g:netrw_dirhist_5='C:/Users/Mike/Documents'
+let g:netrw_dirhist_6='C:/Users/Mike/Documents/Putty Keys'
+let g:netrw_dirhist_7='D:\development'
+let g:netrw_dirhist_8='D:/development/Lens'
