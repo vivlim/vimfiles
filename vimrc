@@ -207,6 +207,9 @@ if has("win32") || has ("win16")
 endif
 nnoremap <space>t :TagbarToggle<cr>
 
+" do not sort tags by default.
+let g:tagbar_sort = 0
+
 " tagbar config end
 
 " syntax highlighting
