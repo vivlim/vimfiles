@@ -18,6 +18,11 @@ if has("win32") || has ("win16")
     let g:indent_guides_guide_size = 1
 
     set gfn=Consolas:h10
+
+    " get out of system32 at launch
+    if getcwd() == 'C:\Windows\system32'
+        cd $HOME
+    endif
 endif
 
 set lines=40 columns=120
