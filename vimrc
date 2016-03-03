@@ -30,6 +30,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'mbbill/undotree'
+Plugin 'majutsushi/tagbar'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -199,6 +200,14 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 set shortmess+=I
 
 command UpdateVimConfig :e ~/vimfiles/vimrc|:Gpull|:PluginInstall|:source %
+
+" tagbar config begin
+if has("win32") || has ("win16")
+    let g:tagbar_ctags_bin = $HOME . '/vimfiles/bin/ctags.exe'
+endif
+nnoremap <space>t :TagbarToggle<cr>
+
+" tagbar config end
 
 " syntax highlighting
 syntax on
