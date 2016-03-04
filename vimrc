@@ -132,7 +132,7 @@ let g:unite_source_grep_recursive_opt = ''
 nnoremap <space>/ :Unite grep:.<cr>
 
 " Buffers
-nnoremap <space>b :Unite buffer window bookmark<cr>
+nnoremap <space>b :Unite buffer bookmark<cr>
 
 " default unite
 nnoremap <space>u :Unite<cr>
