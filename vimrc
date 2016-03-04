@@ -2,6 +2,27 @@ set nocompatible              " be iMproved, required
 set hidden                    " instead of closing buffers, just hide them.
 filetype off                  " required
 
+set encoding=utf-8
+set list listchars=tab:→\ ,trail:·
+
+set nocompatible
+set tabstop=4     " a tab is four spaces
+set backspace=indent,eol,start
+                  " allow backspacing over everything in insert mode
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set shiftwidth=4  " number of spaces to use for autoindenting
+set expandtab " never make tabs
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set showmatch     " set show matching parenthesis
+set ignorecase    " ignore case when searching
+set smartcase     " ignore case if search pattern is all lowercase,
+                  "    case-sensitive otherwise
+set smarttab      " insert tabs on the start of a line according to
+                  "    shiftwidth, not tabstop
+set hlsearch      " highlight search terms
+set incsearch     " show search matches as you type
+
 if has("win32") || has ("win16")
     let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
 else
@@ -52,30 +73,17 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this lineset fileformat=dos
 
-set encoding=utf-8
-set list listchars=tab:→\ ,trail:·
-
-set nocompatible
-set tabstop=4     " a tab is four spaces
-set backspace=indent,eol,start
-                  " allow backspacing over everything in insert mode
-set autoindent    " always set autoindenting on
-set copyindent    " copy the previous indentation on autoindenting
-set shiftwidth=4  " number of spaces to use for autoindenting
-set expandtab " never make tabs
-set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
-set showmatch     " set show matching parenthesis
-set ignorecase    " ignore case when searching
-set smartcase     " ignore case if search pattern is all lowercase,
-                  "    case-sensitive otherwise
-set smarttab      " insert tabs on the start of a line according to
-                  "    shiftwidth, not tabstop
-set hlsearch      " highlight search terms
-set incsearch     " show search matches as you type
 
 " big history B)
 set history=1000
 set undolevels=1000
+if has("persistent_undo")
+    let myUndoDir = expand($HOME . '/vimundo')
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif
+
 set wildignore=*.swp,*.bak,*.pyc,*.class
 
 " don't save cluttery backup or swap files
@@ -189,11 +197,6 @@ nnoremap <space>g :Gstatus<cr>
 
 " toggle undotree
 nnoremap <s-u> :UndotreeToggle<cr>
-
-if has("persistent_undo")
-    set undodir=~/.undodir/
-    set undofile
-endif
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
