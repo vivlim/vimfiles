@@ -199,7 +199,9 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
 
+" my custom commands
 command UpdateVimConfig :e ~/vimfiles/vimrc|:Gpull|:PluginInstall|:source %
+command CdCurrentFilePath :cd %:p:h
 
 " tagbar config begin
 if has("win32") || has ("win16")
