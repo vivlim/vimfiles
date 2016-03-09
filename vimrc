@@ -53,6 +53,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
+Plugin 'lrvick/Conque-Shell' " unofficial repo
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -221,6 +222,9 @@ nnoremap <space>t :TagbarToggle<cr>
 let g:tagbar_sort = 0
 
 " tagbar config end
+
+" let sessions restore conque buffers
+let g:ConqueTerm_SessionSupport = 1
 
 " syntax highlighting
 syntax on
