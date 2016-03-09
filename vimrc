@@ -42,6 +42,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-session'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -144,6 +145,10 @@ nnoremap <space>b :Unite buffer bookmark<cr>
 
 " default unite
 nnoremap <space>u :Unite<cr>
+
+" sessions
+nnoremap <space>s :Unite session<cr>
+nnoremap <space>S :UniteSessionSave<space>
 
 " commands
 nnoremap <space>; :Unite command<cr>

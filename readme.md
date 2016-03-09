@@ -24,6 +24,7 @@ shitty readme for my vimconfig
 * space, n to start NERDtree
 * space, g to show git status (using fugitive-vim, only works inside of a git repo.)
 * space, t to toggle tag tree
+* space, s to see saved sessions (capital S to save current session)
 * substitutions all have 'g' at end by default
 * [surround-vim](https://github.com/tpope/vim-surround) and all that entails
 * [commentary-vim](https://github.com/tpope/vim-commentary), notably 'gc' to comment the target of a motion
