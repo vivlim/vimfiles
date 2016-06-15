@@ -23,6 +23,9 @@ set smarttab      " insert tabs on the start of a line according to
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 
+" jk to leave insert mode.
+inoremap jk <ESC>
+
 if has("win32") || has ("win16")
     let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
 else
@@ -111,9 +114,6 @@ nnoremap <leader>. :tabn<cr>
 " j and k move up and down screen lines, not file lines.
 " nnoremap j gj
 " nnoremap k gk
-
-" jk to leave insert mode.
-inoremap jk <ESC>
 
 filetype on
 filetype plugin on
