@@ -57,6 +57,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
 Plugin 'lrvick/Conque-Shell' " unofficial repo
+Plugin 'pelodelfuego/vim-swoop'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -148,11 +149,13 @@ nnoremap <space>b :Unite buffer bookmark<cr>
 nnoremap <space>u :Unite<cr>
 
 " sessions
-nnoremap <space>s :Unite session<cr>
+nnoremap <space>e :Unite session<cr>
 nnoremap <space>S :UniteSessionSave<space>
 
 " commands
 nnoremap <space>; :Unite command<cr>
+
+nnoremap <space>ss :Swoop<cr>
 
 " airline config
 let g:airline#extensions#tabline#enabled = 1
