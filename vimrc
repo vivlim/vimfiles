@@ -58,6 +58,7 @@ Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
 Plugin 'lrvick/Conque-Shell' " unofficial repo
 Plugin 'pelodelfuego/vim-swoop'
+Plugin 'easymotion/vim-easymotion'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -205,7 +206,13 @@ nnoremap <space>n :NERDTreeToggle<cr>
 nnoremap <space>g :Gstatus<cr>
 
 " toggle undotree
-nnoremap <s-u> :UndotreeToggle<cr>
+nnoremap <space>au :UndotreeToggle<cr>
+
+" remap space,w to c-w
+nnoremap <space>w <C-w>
+
+" use clipboard as default register
+set clipboard=unnamed
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
@@ -228,6 +235,12 @@ let g:tagbar_sort = 0
 
 " let sessions restore conque buffers
 let g:ConqueTerm_SessionSupport = 1
+
+" begin EasyMotion config
+let g:EasyMotion_do_mapping = 0 " disable default map
+map <space><space> <Plug>(easymotion-bd-w)
+nmap <space><space> <Plug>(easymotion-overwin-w)
+" end EasyMotion config
 
 " syntax highlighting
 syntax on
