@@ -260,5 +260,6 @@ syntax on
 set background=dark
 colorscheme hybrid
 
-Guifont Consolas:h10
+" need to make this work in cli mode
+" Guifont Consolas:h10
 
