@@ -56,9 +56,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
-Plugin 'lrvick/Conque-Shell' " unofficial repo
 Plugin 'pelodelfuego/vim-swoop'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'Shougo/neomru.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'equalsraf/neovim-gui-shim'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -144,10 +147,14 @@ let g:unite_source_grep_recursive_opt = ''
 nnoremap <space>/ :Unite grep:.<cr>
 
 " Buffers
-nnoremap <space>b :Unite buffer bookmark<cr>
+nnoremap <space>b :Unite buffer -start-insert<cr>
 
 " default unite
 nnoremap <space>u :Unite<cr>
+
+" mru
+nnoremap <space>f :Unite neomru/file -start-insert<cr>
+nnoremap <space>d :Unite neomru/directory -start-insert<cr>
 
 " sessions
 nnoremap <space>e :Unite session<cr>
@@ -164,20 +171,15 @@ set laststatus=2 " appear immediately, don't wait for a split to be created
 
 " windows-specific settings
 if has("win32") || has ("win16")
-    " point vimproc to the dll sitting in /bin
-    let g:vimproc#dll_path = $USERPROFILE . '/vimfiles/bin/vimproc_win32.dll'
-
     " start explorer
-    nnoremap <space>e :VimProcBang explorer .<cr>
+    nnoremap <space>e :!explorer .<cr>
     " start cmd
-    nnoremap <space>c :VimProcBang start<cr>
+    nnoremap <space>c :!start<cr>
 else
     " set theme if we aren't on windows, because there are terminals that have 256 color support...
     " on windows, defer setting this to gvimrc.
     set t_Co=256
 
-    set background=dark
-    colorscheme hybrid
     let g:airline_theme = "hybrid"
 
     " indent guides
@@ -214,6 +216,18 @@ nnoremap <space>w <C-w>
 " use clipboard as default register
 set clipboard=unnamed
 
+" reload the config
+nnoremap <space><C-r> :so $MYVIMRC<cr>
+
+" swap buffers very quickly
+nnoremap <space><tab> :bprevious<cr>
+
+" swap windows directionally
+nnoremap <space>h <C-w>h
+nnoremap <space>j <C-w>j
+nnoremap <space>k <C-w>k
+nnoremap <space>l <C-w>l
+
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
@@ -233,9 +247,6 @@ let g:tagbar_sort = 0
 
 " tagbar config end
 
-" let sessions restore conque buffers
-let g:ConqueTerm_SessionSupport = 1
-
 " begin EasyMotion config
 let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)
@@ -244,3 +255,10 @@ nmap <space><space> <Plug>(easymotion-overwin-w)
 
 " syntax highlighting
 syntax on
+
+" theme stuff for neovim
+set background=dark
+colorscheme hybrid
+
+Guifont Consolas:h10
+
