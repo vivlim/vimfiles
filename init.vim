@@ -26,59 +26,43 @@ set incsearch     " show search matches as you type
 " jk to leave insert mode.
 inoremap jk <ESC>
 
-if has("win32") || has ("win16")
-    let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
-else
-    let $VIMFILESDIR=$HOME.'/.vim'
-endif
-
-" set the runtime path to include Vundle and initialize
-set rtp+=$VIMFILESDIR/bundle/Vundle.vim/
-call vundle#begin('$VIMFILESDIR/bundle/')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" set the runtime path to include plug and initialize
+call plug#begin()
 
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/unite-session'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'mbbill/undotree'
-Plugin 'majutsushi/tagbar'
-Plugin 'pelodelfuego/vim-swoop'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'Shougo/neomru.vim'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'equalsraf/neovim-gui-shim'
+Plug 'tpope/vim-fugitive'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-session'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'w0ng/vim-hybrid'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
+Plug 'pelodelfuego/vim-swoop'
+Plug 'easymotion/vim-easymotion'
+Plug 'Shougo/neomru.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'equalsraf/neovim-gui-shim'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
-    Plugin 'PProvost/vim-ps1'
+    Plug 'PProvost/vim-ps1'
 endif
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+call plug#end()            " required
 " Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PlugList       - lists configured plugins
+" :PlugInstall    - installs plugins; append `!` to update or just :PlugUpdate
+" :PlugSearch foo - searches for foo; append `!` to refresh local cache
+" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this lineset fileformat=dos
