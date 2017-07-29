@@ -188,6 +188,9 @@ else
 
 endif
 
+" show mappings
+nnoremap <leader>? :map <lt>leader><cr>
+
 " windows-style cut,copy,paste
 nnoremap <C-v> "+gp
 inoremap <C-v> <esc>"+gpa
