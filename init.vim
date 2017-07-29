@@ -148,8 +148,8 @@ nnoremap <space>/ :Denite grep:.<cr>
 " Buffers
 nnoremap <space>b :Denite buffer -start-insert<cr>
 
-" default unite
-nnoremap <space>u :Denite<cr>
+" undo tree
+nnoremap <space>u :UndotreeToggle<cr>
 
 " mru
 nnoremap <space>f :Denite file_mru<cr>
