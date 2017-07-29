@@ -31,6 +31,7 @@ call plug#begin()
 
 " plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-session'
@@ -199,23 +200,29 @@ nnoremap <space>g :Gstatus<cr>
 " toggle undotree
 nnoremap <space>au :UndotreeToggle<cr>
 
-" remap space,w to c-w
-nnoremap <space>w <C-w>
-
 " use clipboard as default register
 set clipboard=unnamed
 
 " reload the config
 nnoremap <space><C-r> :so $MYVIMRC<cr>
 
+" window management
+" remap space,w to c-w
+nnoremap <space>w <C-w>
+" maximize window
+nnoremap <space>wm <C-w>o
+
 " swap buffers very quickly
 nnoremap <space><tab> :bnext<cr>
+nnoremap <space><S-tab> :bprevious<cr>
 
 " swap windows directionally
 nnoremap <space>h <C-w>h
 nnoremap <space>j <C-w>j
 nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
+
+" end window management
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
