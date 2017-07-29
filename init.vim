@@ -161,9 +161,9 @@ set laststatus=2 " appear immediately, don't wait for a split to be created
 " windows-specific settings
 if has("win32") || has ("win16")
     " start explorer
-    nnoremap <space>e :!explorer .<cr>
+    nnoremap <space>e :exe "!explorer " . shellescape(expand('%:p:h'))<cr>
     " start cmd
-    nnoremap <space>c :!start<cr>
+    nnoremap <space>c :exe '!start /D"' . shellescape(expand('%:p:h')) . '" cmd'<cr>
 else
     " set theme if we aren't on windows, because there are terminals that have 256 color support...
     " on windows, defer setting this to gvimrc.
