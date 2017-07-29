@@ -50,6 +50,9 @@ Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'equalsraf/neovim-gui-shim'
+Plug 'Shougo/deoplete.nvim' " async completion
+Plug 'leafgarland/typescript-vim'
+Plug 'mhartington/nvim-typescript'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -67,6 +70,8 @@ call plug#end()            " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this lineset fileformat=dos
 
+" enable deoplete at startup
+let g:deoplete#enable_at_startup = 1
 
 " big history B)
 set history=1000
@@ -204,7 +209,7 @@ set clipboard=unnamed
 nnoremap <space><C-r> :so $MYVIMRC<cr>
 
 " swap buffers very quickly
-nnoremap <space><tab> :bprevious<cr>
+nnoremap <space><tab> :bnext<cr>
 
 " swap windows directionally
 nnoremap <space>h <C-w>h
