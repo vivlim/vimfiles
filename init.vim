@@ -23,6 +23,8 @@ set smarttab      " insert tabs on the start of a line according to
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 
+set autochdir " change directory to match the open file
+
 " jk to leave insert mode.
 inoremap jk <ESC>
 
@@ -32,9 +34,8 @@ call plug#begin()
 " plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-session'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/neomru.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -47,7 +48,6 @@ Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
-Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'equalsraf/neovim-gui-shim'
@@ -124,34 +124,42 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#profile('files', 'filters', 'sorter_rank')
 
 " File searching like ctrlp.vim
-nnoremap <C-p> :Unite file_rec/async -start-insert<cr>
-let g:unite_source_rec_async_command = [$HOME . '/vimfiles/bin/ag.exe', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+nnoremap <C-p> :Denite file_rec<cr>
 
-let g:unite_source_grep_command = $HOME . '/vimfiles/bin/ag.exe'
-let g:unite_source_grep_default_opts =
-\ '-i --vimgrep --hidden --ignore ' .
-\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-let g:unite_source_grep_recursive_opt = ''
+" Begin Denite config
+" Use pt for file_rec
+call denite#custom#var('file_rec', 'command',
+\ ['pt', '--follow', '--nocolor', '--nogroup',
+\  (has('win32') ? '-g:' : '-g='), ''])
 
+" Pt command on grep source
+call denite#custom#var('grep', 'command', ['pt'])
+call denite#custom#var('grep', 'default_opts',
+        \ ['--nogroup', '--nocolor', '--smart-case'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+" End denite config
+"
 " Content searching
-nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>/ :Denite grep:.<cr>
 
 " Buffers
-nnoremap <space>b :Unite buffer -start-insert<cr>
+nnoremap <space>b :Denite buffer -start-insert<cr>
 
 " default unite
-nnoremap <space>u :Unite<cr>
+nnoremap <space>u :Denite<cr>
 
 " mru
-nnoremap <space>f :Unite neomru/file -start-insert<cr>
-nnoremap <space>d :Unite neomru/directory -start-insert<cr>
+nnoremap <space>f :Denite file_mru<cr>
 
 " sessions
-nnoremap <space>e :Unite session<cr>
-nnoremap <space>S :UniteSessionSave<space>
+"nnoremap <space>e :Denite session<cr>
+"nnoremap <space>S :DeniteSessionSave<space>
 
 " commands
-nnoremap <space>; :Unite command<cr>
+nnoremap <space>; :Denite command<cr>
 
 nnoremap <space>ss :Swoop<cr>
 
