@@ -154,6 +154,12 @@ call denite#custom#map(
         \ '<denite:move_to_previous_line>',
         \ 'noremap'
         \)
+call denite#custom#map(
+        \ 'insert',
+        \ '<C-g>',
+        \ '<denite:leave_mode>',
+        \ 'noremap'
+        \)
 
 " End denite config
 "
