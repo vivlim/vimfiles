@@ -50,6 +50,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'equalsraf/neovim-gui-shim'
+Plug 'morhetz/gruvbox'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -242,7 +243,7 @@ syntax on
 
 " theme stuff for neovim
 set background=dark
-colorscheme hybrid
+colorscheme gruvbox
 
 " need to make this work in cli mode
 " Guifont Consolas:h10
