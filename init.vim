@@ -23,6 +23,8 @@ set smarttab      " insert tabs on the start of a line according to
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 
+set autochdir " change directory to match the open file
+
 " jk to leave insert mode.
 inoremap jk <ESC>
 
@@ -31,9 +33,9 @@ call plug#begin()
 
 " plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-session'
+Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/neomru.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -46,11 +48,11 @@ Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
-Plug 'Shougo/neomru.vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'morhetz/gruvbox'
+Plug 'Shougo/deoplete.nvim' " async completion
+Plug 'leafgarland/typescript-vim'
+Plug 'mhartington/nvim-typescript'
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -68,6 +70,8 @@ call plug#end()            " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this lineset fileformat=dos
 
+" enable deoplete at startup
+let g:deoplete#enable_at_startup = 1
 
 " big history B)
 set history=1000
@@ -119,34 +123,38 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#profile('files', 'filters', 'sorter_rank')
 
 " File searching like ctrlp.vim
-nnoremap <C-p> :Unite file_rec/async -start-insert<cr>
-let g:unite_source_rec_async_command = [$HOME . '/vimfiles/bin/ag.exe', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+nnoremap <C-p> :Denite file_rec<cr>
 
-let g:unite_source_grep_command = $HOME . '/vimfiles/bin/ag.exe'
-let g:unite_source_grep_default_opts =
-\ '-i --vimgrep --hidden --ignore ' .
-\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-let g:unite_source_grep_recursive_opt = ''
+" Begin Denite config
+" Use pt for file_rec
+call denite#custom#var('file_rec', 'command',
+\ ['pt', '--follow', '--nocolor', '--nogroup',
+\  (has('win32') ? '-g:' : '-g='), ''])
 
+" Pt command on grep source
+call denite#custom#var('grep', 'command', ['pt'])
+call denite#custom#var('grep', 'default_opts',
+        \ ['--nogroup', '--nocolor', '--smart-case'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+" End denite config
+"
 " Content searching
-nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>/ :Denite grep:.<cr>
 
 " Buffers
-nnoremap <space>b :Unite buffer -start-insert<cr>
+nnoremap <space>b :Denite buffer -start-insert<cr>
 
-" default unite
-nnoremap <space>u :Unite<cr>
+" undo tree
+nnoremap <space>u :UndotreeToggle<cr>
 
 " mru
-nnoremap <space>f :Unite neomru/file -start-insert<cr>
-nnoremap <space>d :Unite neomru/directory -start-insert<cr>
-
-" sessions
-nnoremap <space>e :Unite session<cr>
-nnoremap <space>S :UniteSessionSave<space>
+nnoremap <space>f :Denite file_mru<cr>
 
 " commands
-nnoremap <space>; :Unite command<cr>
+nnoremap <space>; :Denite command<cr>
 
 nnoremap <space>ss :Swoop<cr>
 
@@ -157,9 +165,9 @@ set laststatus=2 " appear immediately, don't wait for a split to be created
 " windows-specific settings
 if has("win32") || has ("win16")
     " start explorer
-    nnoremap <space>e :!explorer .<cr>
+    nnoremap <space>e :exe "!explorer " . shellescape(expand('%:p:h'))<cr>
     " start cmd
-    nnoremap <space>c :!start<cr>
+    nnoremap <space>c :exe '!start /D"' . shellescape(expand('%:p:h')) . '" cmd'<cr>
 else
     " set theme if we aren't on windows, because there are terminals that have 256 color support...
     " on windows, defer setting this to gvimrc.
@@ -174,6 +182,10 @@ else
     let g:indent_guides_guide_size = 1
 
 endif
+
+" show mappings
+nnoremap <space>? :map <lt>space><cr>
+nnoremap <leader>? :map <lt>leader><cr>
 
 " windows-style cut,copy,paste
 nnoremap <C-v> "+gp
@@ -195,23 +207,29 @@ nnoremap <space>g :Gstatus<cr>
 " toggle undotree
 nnoremap <space>au :UndotreeToggle<cr>
 
-" remap space,w to c-w
-nnoremap <space>w <C-w>
-
 " use clipboard as default register
 set clipboard=unnamed
 
 " reload the config
 nnoremap <space><C-r> :so $MYVIMRC<cr>
 
+" window management
+" remap space,w to c-w
+nnoremap <space>w <C-w>
+" maximize window
+nnoremap <space>wm <C-w>o
+
 " swap buffers very quickly
-nnoremap <space><tab> :bprevious<cr>
+nnoremap <space><tab> :bnext<cr>
+nnoremap <space><S-tab> :bprevious<cr>
 
 " swap windows directionally
 nnoremap <space>h <C-w>h
 nnoremap <space>j <C-w>j
 nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
+
+" end window management
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
