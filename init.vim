@@ -160,8 +160,8 @@ call denite#custom#map(
 " Content searching
 nnoremap <space>/ :Denite grep:.<cr>
 
-" Buffers
-nnoremap <space>b :Denite buffer -start-insert<cr>
+" Buffer manipulation
+nnoremap <space>bd :bd<cr>
 
 " undo tree
 nnoremap <space>u :UndotreeToggle<cr>
