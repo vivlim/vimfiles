@@ -48,8 +48,6 @@ Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'Shougo/deoplete.nvim' " async completion
 Plug 'leafgarland/typescript-vim'
@@ -154,10 +152,6 @@ nnoremap <space>u :UndotreeToggle<cr>
 " mru
 nnoremap <space>f :Denite file_mru<cr>
 
-" sessions
-"nnoremap <space>e :Denite session<cr>
-"nnoremap <space>S :DeniteSessionSave<space>
-
 " commands
 nnoremap <space>; :Denite command<cr>
 
@@ -189,6 +183,7 @@ else
 endif
 
 " show mappings
+nnoremap <space>? :map <lt>space><cr>
 nnoremap <leader>? :map <lt>leader><cr>
 
 " windows-style cut,copy,paste
