@@ -73,6 +73,9 @@ call plug#end()            " required
 " enable deoplete at startup
 let g:deoplete#enable_at_startup = 1
 
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
 " big history B)
 set history=1000
 set undolevels=1000
