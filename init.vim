@@ -254,6 +254,16 @@ nnoremap <space>j <C-w>j
 nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
+" vertical split
+nnoremap <space>w/ :vsplit<cr>
+
+" horizontal split
+nnoremap <space>w- :sp<cr>
+
+" make splits happen below and right so the focus is where I expect
+set splitbelow
+set splitright
+
 " end window management
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
