@@ -296,7 +296,7 @@ syntax on
 
 " theme stuff for neovim
 set background=dark
-colorscheme gruvbox
+silent! colorscheme gruvbox
 
 " need to make this work in cli mode
 " Guifont Consolas:h10
