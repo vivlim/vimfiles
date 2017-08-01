@@ -1,2 +1,2 @@
-Guifont! Source Code Pro:h10:b
+Guifont! Consolas:h10
 call GuiWindowMaximized(1)

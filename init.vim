@@ -247,8 +247,8 @@ nnoremap <space>w <C-w>
 nnoremap <space>wm <C-w>o
 
 " swap buffers very quickly
-nnoremap <space><tab> :bnext<cr>
-nnoremap <space><S-tab> :bprevious<cr>
+nnoremap <space><tab> :bprevious<cr>
+nnoremap <space><S-tab> :bnext<cr>
 
 " swap windows directionally
 nnoremap <space>h <C-w>h
