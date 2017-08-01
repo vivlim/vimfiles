@@ -193,7 +193,11 @@ nnoremap <space>bb :Denite buffer file_mru<cr>
 " commands
 nnoremap <space>; :Denite command<cr>
 
-nnoremap <space>ss :Swoop<cr>
+" swoop
+nnoremap <space>ss :Denite line<cr>
+
+" resume
+nnoremap <space>hl :Denite -resume<cr>
 
 " airline config
 let g:airline#extensions#tabline#enabled = 1
