@@ -125,9 +125,6 @@ nnoremap <leader>> :cnf<cr>
 " Sort by strength of match, not source
 "call unite#custom#profile('files', 'filters', 'sorter_rank')
 
-" File searching like ctrlp.vim
-nnoremap <C-p> :Denite file_rec<cr>
-
 " Begin Denite config
 if exists("*denite#custom#var")
     " Use pt for file_rec
@@ -164,6 +161,13 @@ if exists("*denite#custom#var")
             \ '<denite:leave_mode>',
             \ 'noremap'
             \)
+    " change working directory
+    call denite#custom#map(
+            \ 'insert',
+            \ '<C-h>',
+            \ '<denite:change_path>',
+            \ 'noremap'
+            \)
 endif
 
 " End denite config
@@ -178,7 +182,13 @@ nnoremap <space>bd :bd<cr>
 nnoremap <space>u :UndotreeToggle<cr>
 
 " mru
-nnoremap <space>f :Denite file_mru<cr>
+nnoremap <space>fr :Denite file_mru<cr>
+
+" Recursive file search
+nnoremap <space>ff :Denite file_rec<cr>
+
+" Buffer and MRU search
+nnoremap <space>bb :Denite buffer file_mru<cr>
 
 " commands
 nnoremap <space>; :Denite command<cr>
