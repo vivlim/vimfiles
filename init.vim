@@ -126,49 +126,47 @@ nnoremap <leader>> :cnf<cr>
 "call unite#custom#profile('files', 'filters', 'sorter_rank')
 
 " Begin Denite config
-if exists("*denite#custom#var")
-    " Use pt for file_rec
-    call denite#custom#var('file_rec', 'command',
-    \ ['pt', '--follow', '--nocolor', '--nogroup',
-    \  (has('win32') ? '-g:' : '-g='), ''])
+" Use pt for file_rec
+call denite#custom#var('file_rec', 'command',
+\ ['pt', '--follow', '--nocolor', '--nogroup',
+\  (has('win32') ? '-g:' : '-g='), ''])
 
-    " Pt command on grep source
-    call denite#custom#var('grep', 'command', ['pt'])
-    call denite#custom#var('grep', 'default_opts',
-            \ ['--nogroup', '--nocolor', '--smart-case'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
+" Pt command on grep source
+call denite#custom#var('grep', 'command', ['pt'])
+call denite#custom#var('grep', 'default_opts',
+        \ ['--nogroup', '--nocolor', '--smart-case'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
 
-    " C-P and C-N for switching candidates
-    " Change mappings.
-    call denite#custom#map(
-            \ 'insert',
-            \ '<C-n>',
-            \ '<denite:move_to_next_line>',
-            \ 'noremap'
-            \)
-    call denite#custom#map(
-            \ 'insert',
-            \ '<C-p>',
-            \ '<denite:move_to_previous_line>',
-            \ 'noremap'
-            \)
-    call denite#custom#map(
-            \ 'insert',
-            \ '<C-g>',
-            \ '<denite:leave_mode>',
-            \ 'noremap'
-            \)
-    " change working directory
-    call denite#custom#map(
-            \ 'insert',
-            \ '<C-h>',
-            \ '<denite:change_path>',
-            \ 'noremap'
-            \)
-endif
+" C-P and C-N for switching candidates
+" Change mappings.
+call denite#custom#map(
+        \ 'insert',
+        \ '<C-n>',
+        \ '<denite:move_to_next_line>',
+        \ 'noremap'
+        \)
+call denite#custom#map(
+        \ 'insert',
+        \ '<C-p>',
+        \ '<denite:move_to_previous_line>',
+        \ 'noremap'
+        \)
+call denite#custom#map(
+        \ 'insert',
+        \ '<C-g>',
+        \ '<denite:leave_mode>',
+        \ 'noremap'
+        \)
+" change working directory
+call denite#custom#map(
+        \ 'insert',
+        \ '<C-h>',
+        \ '<denite:change_path>',
+        \ 'noremap'
+        \)
 
 " End denite config
 "
