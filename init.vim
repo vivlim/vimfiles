@@ -33,6 +33,7 @@ call plug#begin()
 
 " plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
