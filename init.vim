@@ -315,3 +315,5 @@ silent! colorscheme gruvbox
 " need to make this work in cli mode
 " Guifont Consolas:h10
 
+" disable guicursor -- in some terminal emulators it draws q's everywhere
+set guicursor=
