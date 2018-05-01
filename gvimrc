@@ -17,7 +17,7 @@ if has("win32") || has ("win16")
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
 
-    set gfn=Monaco:h9:qNONANTIALIASED
+    set gfn=ProggyCleanTT:h12:qNONANTIALIASED,Monaco:h9:qNONANTIALIASED,Consolas:h9
     "set gfn=Consolas:h9
 
     " get out of system32 at launch
