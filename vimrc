@@ -49,7 +49,7 @@ Plugin 'Shougo/unite-session'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'w0ng/vim-hybrid'
+Plugin 'tssm/fairyfloss.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -211,8 +211,9 @@ nnoremap <space>au :UndotreeToggle<cr>
 " remap space,w to c-w
 nnoremap <space>w <C-w>
 
-" use clipboard as default register
-set clipboard=unnamed
+" don't use clipboard as default register, but keep it here if i change my
+" mind :thinking:
+" set clipboard=unnamed
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
