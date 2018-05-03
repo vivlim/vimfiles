@@ -50,6 +50,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tssm/fairyfloss.vim'
+Plugin 'machakann/vim-colorscheme-tatami'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -174,11 +175,15 @@ if has("win32") || has ("win16")
 else
     " set theme if we aren't on windows, because there are terminals that have 256 color support...
     " on windows, defer setting this to gvimrc.
-    set t_Co=256
-
-    set background=dark
-    colorscheme hybrid
-    let g:airline_theme = "hybrid"
+    
+    if $COLORTERM == "truecolor"
+        set termguicolors
+        colorscheme fairyfloss
+        let g:airline_theme = "fairyfloss"
+    else
+        set background=dark
+        colorscheme tatami
+    endif
 
     " indent guides
     " these throw an error in cmd vim so just put them here.

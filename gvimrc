@@ -5,12 +5,12 @@ set guioptions-=L
 
 nnoremap <C-l> :let @+=expand("%:p")<cr><C-z>
 
-" on windows we haven't set the theme yet
-if has("win32") || has ("win16")
-    set background=dark
-    colorscheme fairyfloss
-    let g:airline_theme = "fairyfloss"
+" set gui theme
+set background=dark
+colorscheme fairyfloss
+let g:airline_theme = "fairyfloss"
 
+if has("win32") || has ("win16")
     " indent guides
     " these throw an error in cmd vim so just put them here.
     let g:indent_guides_enable_on_vim_startup = 1
@@ -24,6 +24,8 @@ if has("win32") || has ("win16")
     if getcwd() == 'C:\Windows\system32'
         cd $HOME
     endif
+else
+    set gfn=Dina
 endif
 
 set lines=40 columns=120
