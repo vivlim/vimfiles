@@ -26,6 +26,9 @@ set incsearch     " show search matches as you type
 " jk to leave insert mode.
 inoremap jk <ESC>
 
+" and terminal mode too~
+tnoremap jk <C-\><C-n>
+
 if has("win32") || has ("win16")
     let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
 else
@@ -60,6 +63,12 @@ Plugin 'majutsushi/tagbar'
 Plugin 'lrvick/Conque-Shell' " unofficial repo
 Plugin 'pelodelfuego/vim-swoop'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'camspiers/animate.vim'
+
+nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
+nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(10)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(-10)<CR>
 
 " Windows-only plugins
 if has("win32") || has ("win16")
@@ -200,6 +209,10 @@ nnoremap <C-x> "+d
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 
+" on windows, get a fill path from the clipboard, remove quotes, and try to
+" open it in a split
+nnoremap <C-o> :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
+
 " full buffer cut & copy
 nnoremap <C-s-x> :%d+<cr>
 nnoremap <C-s-c> :%y+<cr>
@@ -250,3 +263,8 @@ nmap <space><space> <Plug>(easymotion-overwin-w)
 
 " syntax highlighting
 syntax on
+
+set background=dark
+colorscheme fairyfloss
+let g:airline_theme = "fairyfloss"
+set guifont=Fira\ Mono\ for\ Powerline:h14
