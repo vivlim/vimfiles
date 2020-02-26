@@ -64,6 +64,10 @@ Plugin 'lrvick/Conque-Shell' " unofficial repo
 Plugin 'pelodelfuego/vim-swoop'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'camspiers/animate.vim'
+Plugin 'liuchengxu/vim-which-key'
+
+let g:mapleader = "\<Space>"
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
 nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
