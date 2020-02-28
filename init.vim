@@ -37,6 +37,18 @@ else
     let $VIMFILESDIR=$HOME.'/.nvim'
 endif
 
+"auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    if has("win32") || has ("win16")
+        silent !powershell -command "md ~\AppData\Local\nvim\autoload; $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'; (New-Object Net.WebClient).DownloadFile($uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( '~\AppData\Local\nvim\autoload\plug.vim'));"
+        autocmd VimEnter * PlugInstall
+    else
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall
+    endif
+endif
+
 " set the runtime path to include Vundle and initialize
 set rtp+=$VIMFILESDIR/bundle/Vundle.vim/
 call vundle#begin('$VIMFILESDIR/bundle/')
@@ -59,6 +71,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'pelodelfuego/vim-swoop'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'liuchengxu/vim-which-key'
+Plugin 'sbdchd/neoformat'
 
 if has('nvim')
   Plugin 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
