@@ -32,9 +32,9 @@ inoremap jk <ESC>
 tnoremap jk <C-\><C-n>
 
 if has("win32") || has ("win16")
-    let $VIMFILESDIR=$USERPROFILE.'/vimfiles'
+    let $VIMFILESDIR=$USERPROFILE.'/AppData/Local/nvim'
 else
-    let $VIMFILESDIR=$HOME.'/.vim'
+    let $VIMFILESDIR=$HOME.'/.nvim'
 endif
 
 " set the runtime path to include Vundle and initialize
@@ -58,16 +58,18 @@ Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
 Plugin 'pelodelfuego/vim-swoop'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'camspiers/animate.vim'
 Plugin 'liuchengxu/vim-which-key'
+
+if has('nvim')
+  Plugin 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/denite.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
 
 let g:mapleader = "\<Space>"
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-
-nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
-nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
-nnoremap <silent> <Left>  :call animate#window_delta_width(10)<CR>
-nnoremap <silent> <Right> :call animate#window_delta_width(-10)<CR>
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -186,11 +188,57 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
 
+" open a terminal
+if has("win32") || has ("win16")
+    nnoremap <space>T :terminal powershell<cr>i
+else
+    nnoremap <space>T :terminal<cr>i
+endif
+
 " begin EasyMotion config
 let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)
 nmap <space><space> <Plug>(easymotion-overwin-w)
 " end EasyMotion config
+
+" begin denite config
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+nnoremap <space>df :Denite file/rec<cr>
+nnoremap <space>dd :Denite directory_rec<cr>
+nnoremap <space>db :Denite buffer<cr>
+nnoremap <space>dr :Denite file/old<cr>
+nnoremap <space>dc :Denite command<cr>
+nnoremap <space>dx :Denite change<cr>
+nnoremap <space>dg :Denite grep<cr>
+nnoremap <C-p> :Denite file/rec buffer<cr>
+
+" Ripgrep command on grep source
+if has("win32") || has ("win16")
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts',
+            \ ['-i', '--vimgrep', '--no-heading'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
+endif
+" end denite config
 
 " syntax highlighting
 syntax on
