@@ -37,55 +37,38 @@ else
     let $VIMFILESDIR=$HOME.'/.nvim'
 endif
 
-"auto-install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-    if has("win32") || has ("win16")
-        silent !powershell -command "md ~\AppData\Local\nvim\autoload; $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'; (New-Object Net.WebClient).DownloadFile($uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( '~\AppData\Local\nvim\autoload\plug.vim'));"
-        autocmd VimEnter * PlugInstall
-    else
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall
-    endif
-endif
-
-" set the runtime path to include Vundle and initialize
-set rtp+=$VIMFILESDIR/bundle/Vundle.vim/
-call vundle#begin('$VIMFILESDIR/bundle/')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin(stdpath('data') . '/plugged')
 
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tssm/fairyfloss.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'mbbill/undotree'
-Plugin 'majutsushi/tagbar'
-Plugin 'pelodelfuego/vim-swoop'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'liuchengxu/vim-which-key'
-Plugin 'sbdchd/neoformat'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tssm/fairyfloss.vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
+Plug 'pelodelfuego/vim-swoop'
+Plug 'easymotion/vim-easymotion'
+Plug 'liuchengxu/vim-which-key'
+Plug 'sbdchd/neoformat'
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 if has('nvim')
-  Plugin 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plugin 'Shougo/denite.nvim'
-  Plugin 'roxma/nvim-yarp'
-  Plugin 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/denite.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 let g:mapleader = "\<Space>"
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -171,6 +154,10 @@ vnoremap <C-c> "+y
 " open it in a split
 nnoremap <C-o> :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
 
+" make managing configs easier
+nnoremap <space>ce :e $MYVIMRC<cr>
+nnoremap <space>cr :source $MYVIMRC<cr>
+
 " full buffer cut & copy
 nnoremap <C-s-x> :%d+<cr>
 nnoremap <C-s-c> :%y+<cr>
@@ -190,6 +177,8 @@ nnoremap <space>j <C-w>j
 nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
+nnoremap <space>n :NERDTreeToggle<cr>
+
 " halp (show normal mode bindings)
 nnoremap <space>? :nmap<cr>
 
@@ -203,9 +192,9 @@ set shortmess+=I
 
 " open a terminal
 if has("win32") || has ("win16")
-    nnoremap <space>T :terminal powershell<cr>i
+    nnoremap <space>t :terminal powershell<cr>i
 else
-    nnoremap <space>T :terminal<cr>i
+    nnoremap <space>t :terminal<cr>i
 endif
 
 " begin EasyMotion config
@@ -213,6 +202,8 @@ let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)
 nmap <space><space> <Plug>(easymotion-overwin-w)
 " end EasyMotion config
+
+nnoremap <space>dg :Denite grep<cr>
 
 " begin denite config
 " Define mappings
