@@ -68,8 +68,10 @@ else
 endif
 
 if has("win32") || has ("win16")
+    "Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
 else
     Plug 'wellle/tmux-complete.vim'
+    "Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 endif
 
 let g:mapleader = "\<Space>"
@@ -82,6 +84,12 @@ filetype plugin indent on    " required
 "filetype plugin on
 
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#var('tabnine', {
+\ 'line_limit': 500,
+\ 'max_num_results': 10,
+\ })
+" <TAB>: cycle completions.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " big history B)
 set history=1000
