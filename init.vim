@@ -166,6 +166,13 @@ nnoremap <C-s-c> :%y+<cr>
 nnoremap <space>gs :Gstatus<cr>
 nnoremap <space>gd :Gdiff<cr>
 nnoremap <space>gc :Gcommit<cr>
+nnoremap <space>gp :Git push<cr>
+nnoremap <space>gP :Git pull<cr>
+nnoremap <space>gf :Git fetch<cr>
+nnoremap <space>gh :0Glog<cr>
+nnoremap <space>gl :Gclog<cr>
+nnoremap <space>gb :Git blame<cr>
+nnoremap <space>ga :Gwrite<cr>
 
 " toggle undotree
 nnoremap <space>u :UndotreeToggle<cr>
@@ -226,11 +233,13 @@ endfunction
 nnoremap <space>df :Denite file/rec<cr>
 nnoremap <space>dd :Denite directory_rec<cr>
 nnoremap <space>db :Denite buffer<cr>
+" this one might feel more natural to me?
+nnoremap <space>b :Denite buffer<cr>
 nnoremap <space>dr :Denite file/old<cr>
 nnoremap <space>dc :Denite command<cr>
 nnoremap <space>dx :Denite change<cr>
 nnoremap <space>dg :Denite grep<cr>
-nnoremap <C-p> :Denite file/rec buffer<cr>
+nnoremap <C-p> :Denite buffer file/rec file/old<cr>
 
 " Ripgrep command on grep source
 if has("win32") || has ("win16")
