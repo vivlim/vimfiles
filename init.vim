@@ -53,15 +53,23 @@ Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
 Plug 'liuchengxu/vim-which-key'
 Plug 'sbdchd/neoformat'
+Plug 'Shougo/neco-syntax'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/denite.nvim'
+  Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+if has("win32") || has ("win16")
+else
+    Plug 'wellle/tmux-complete.vim'
 endif
 
 let g:mapleader = "\<Space>"
@@ -72,16 +80,8 @@ call plug#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this lineset fileformat=dos
 
+let g:deoplete#enable_at_startup = 1
 
 " big history B)
 set history=1000
