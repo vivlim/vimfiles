@@ -264,6 +264,9 @@ endif
 " syntax highlighting
 syntax on
 
+" :w!! write as sudo. https://stackoverflow.com/a/48237738
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
 set background=dark
 colorscheme fairyfloss
 let g:airline_theme = "fairyfloss"
