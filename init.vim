@@ -23,7 +23,7 @@ set smarttab      " insert tabs on the start of a line according to
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 
-set autochdir " chdir to current file
+"set autochdir " chdir to current file
 
 " jk to leave insert mode.
 inoremap jk <ESC>
@@ -249,6 +249,17 @@ nnoremap <space>dx :Denite change<cr>
 nnoremap <space>dg :Denite grep<cr>
 nnoremap <C-p> :Denite buffer file/rec file/old<cr>
 
+" file bindings
+" yank path to current file
+nnoremap <space>fy :let @" = expand("%:p")<cr>
+" yank path to current file (clipboard)
+nnoremap <space>fY :let @+ = expand("%:p")<cr>
+
+" on windows, add 'open path in explorer'
+if has("win32") || has ("win16")
+    nnoremap <space>fe :silent !start explorer "%:p:h"<cr>
+endif
+
 " Ripgrep command on grep source
 if has("win32") || has ("win16")
     call denite#custom#var('grep', 'command', ['rg'])
@@ -282,6 +293,12 @@ if !(exists("$nvim_bigfont") && exists("$nvim_smallfont"))
     let $nvim_smallfont = "CozetteVector:h12"
     let $nvim_bigfont = "CozetteVector:h24"
 endif
+
+if !(exists("$nvim_notes_file"))
+    let $nvim_notes_file = "~/nvim-scratch.txt"
+endif
+
+execute "nnoremap <space>N :sp " . $nvim_notes_file . "<cr>"
 
 execute "set guifont=" . $nvim_bigfont
 " ctrl - and + to switch font size quickly.
