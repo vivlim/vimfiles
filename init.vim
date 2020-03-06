@@ -270,4 +270,20 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 set background=dark
 colorscheme fairyfloss
 let g:airline_theme = "fairyfloss"
-set guifont=Fira\ Mono\ for\ Powerline:h14
+"set guifont=Fira\ Mono\ for\ Powerline:h14
+"set guifont=CozetteVector:h24
+
+" read local config if it exists
+if filereadable(expand("~/.nvim_local.vim"))
+    source ~/.nvim_local.vim
+endif
+
+if !(exists("$nvim_bigfont") && exists("$nvim_smallfont"))
+    let $nvim_smallfont = "CozetteVector:h12"
+    let $nvim_bigfont = "CozetteVector:h24"
+endif
+
+execute "set guifont=" . $nvim_bigfont
+" ctrl - and + to switch font size quickly.
+nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
+nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
