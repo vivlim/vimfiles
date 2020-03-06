@@ -1,5 +1,6 @@
-shitty readme for my vimconfig
+outdated readme for my vimconfig
 ==============================
+this needs to be updated for my recent neovim config, but isn't yet. sorry, future me!
 
 1. clone this (on linux, clone to .vim instead of vimfiles)
 2. git submodule init
@@ -32,3 +33,10 @@ shitty readme for my vimconfig
 * shift+u to toggle undotree
 * (gvim only, in a file with the extension .pasta) enter to copy the current line to the windows clipboard & minimize
 * Add custom command UpdateVimConfig which will pull this stuff to the machine you run it on.
+
+# neovim-remote
+`pip3 install --user neovim-remote`
+
+then set the environment variable `NVIM_LISTEN_ADDRESS` to something like:
+* `\\.\pipe\nvim-remote` on windows
+* `/tmp/nvim-remote` on others
