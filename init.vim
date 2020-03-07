@@ -160,7 +160,7 @@ vnoremap <C-c> "+y
 
 " on windows, get a fill path from the clipboard, remove quotes, and try to
 " open it in a split
-nnoremap <C-o> :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
+nnoremap <space>fo :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
 
 " make managing configs easier
 nnoremap <space>ce :e $MYVIMRC<cr>
@@ -199,7 +199,9 @@ nnoremap <space>? :nmap<cr>
 
 " don't use clipboard as default register, but keep it here if i change my
 " mind :thinking:
-" set clipboard=unnamed
+" trying it again. it lagged in vsvim because something else was locking the
+" clipboard (??) but maybe it'll be ok.
+set clipboard=unnamed
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
@@ -217,6 +219,11 @@ let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)
 nmap <space><space> <Plug>(easymotion-overwin-w)
 " end EasyMotion config
+
+" space b to show list of buffers
+set wildcharm=<C-z>
+set wildmenu
+nnoremap <space>b :b <C-z>
 
 nnoremap <space>dg :Denite grep<cr>
 
@@ -241,8 +248,6 @@ endfunction
 nnoremap <space>df :Denite file/rec<cr>
 nnoremap <space>dd :Denite directory_rec<cr>
 nnoremap <space>db :Denite buffer<cr>
-" this one might feel more natural to me?
-nnoremap <space>b :Denite buffer<cr>
 nnoremap <space>dr :Denite file/old<cr>
 nnoremap <space>dc :Denite command<cr>
 nnoremap <space>dx :Denite change<cr>
@@ -251,9 +256,13 @@ nnoremap <C-p> :Denite buffer file/rec file/old<cr>
 
 " file bindings
 " yank path to current file
-nnoremap <space>fy :let @" = expand("%:p")<cr>
+nnoremap <space>fy :let @+ = expand("%:p")<cr>
 " yank path to current file (clipboard)
 nnoremap <space>fY :let @+ = expand("%:p")<cr>
+" new file
+nnoremap <space>fn :new<cr>
+
+" previous buffer
 
 " on windows, add 'open path in explorer'
 if has("win32") || has ("win16")
