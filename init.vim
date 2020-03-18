@@ -54,6 +54,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'liuchengxu/vim-which-key'
 Plug 'sbdchd/neoformat'
 Plug 'Shougo/neco-syntax'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
@@ -223,7 +225,7 @@ nmap <space><space> <Plug>(easymotion-overwin-w)
 " space b to show list of buffers
 set wildcharm=<C-z>
 set wildmenu
-nnoremap <space>b :b <C-z>
+nnoremap <space>b :buffers<cr>:buffer<space>
 
 nnoremap <space>dg :Denite grep<cr>
 
@@ -252,7 +254,6 @@ nnoremap <space>dr :Denite file/old<cr>
 nnoremap <space>dc :Denite command<cr>
 nnoremap <space>dx :Denite change<cr>
 nnoremap <space>dg :Denite grep<cr>
-nnoremap <C-p> :Denite buffer file/rec file/old<cr>
 
 " file bindings
 " yank path to current file
@@ -261,6 +262,16 @@ nnoremap <space>fy :let @+ = expand("%:p")<cr>
 nnoremap <space>fY :let @+ = expand("%:p")<cr>
 " new file
 nnoremap <space>fn :new<cr>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" Fuzzy Find Files
+nnoremap <space>fff :call fzf#run({'sink': 'e'})<cr>
+" Fuzzy Find Git-tracked files
+nnoremap <space>ffg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
+
+nnoremap <C-p> :FZF<cr>
+
+nnoremap <C-Tab> <C-^>
 
 " previous buffer
 
@@ -283,6 +294,9 @@ endif
 
 " syntax highlighting
 syntax on
+
+" ctrl-space mapping key
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 " :w!! write as sudo. https://stackoverflow.com/a/48237738
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -309,7 +323,9 @@ endif
 
 execute "nnoremap <space>N :sp " . $nvim_notes_file . "<cr>"
 
-execute "set guifont=" . $nvim_bigfont
+execute "set guifont=" . $nvim_smallfont
 " ctrl - and + to switch font size quickly.
 nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
 nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
+
+"lua require’nvim_lsp'.rust_analyzer.setup({})
