@@ -22,6 +22,8 @@ set smarttab      " insert tabs on the start of a line according to
                   "    shiftwidth, not tabstop
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
+set timeoutlen=250
+
 
 "set autochdir " chdir to current file
 
@@ -58,6 +60,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -195,6 +198,8 @@ nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
 nnoremap <space>n :NERDTreeToggle<cr>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 " halp (show normal mode bindings)
 nnoremap <space>? :nmap<cr>
@@ -262,6 +267,8 @@ nnoremap <space>fy :let @+ = expand("%:p")<cr>
 nnoremap <space>fY :let @+ = expand("%:p")<cr>
 " new file
 nnoremap <space>fn :new<cr>
+" cd to current file's directory
+nnoremap <space>fc :lcd %:p:h<cr>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " Fuzzy Find Files
