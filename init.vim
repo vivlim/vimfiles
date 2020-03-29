@@ -57,17 +57,18 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'sbdchd/neoformat'
 Plug 'Shougo/neco-syntax'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf.vim',
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/denite.nvim'
-  Plug 'Shougo/deoplete.nvim'
+  "Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -75,7 +76,7 @@ endif
 if has("win32") || has ("win16")
     "Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
 else
-    Plug 'wellle/tmux-complete.vim'
+    "Plug 'wellle/tmux-complete.vim'
     "Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 endif
 
@@ -87,12 +88,10 @@ call plug#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
+"
+"" Use <c-space> to trigger completion.
+"inoremap <silent><expr> <c-space> coc#refresh()
 
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#var('tabnine', {
-\ 'line_limit': 500,
-\ 'max_num_results': 10,
-\ })
 " <TAB>: cycle completions.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -230,34 +229,7 @@ nmap <space><space> <Plug>(easymotion-overwin-w)
 " space b to show list of buffers
 set wildcharm=<C-z>
 set wildmenu
-nnoremap <space>b :buffers<cr>:buffer<space>
 
-nnoremap <space>dg :Denite grep<cr>
-
-" begin denite config
-" Define mappings
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
-
-nnoremap <space>df :Denite file/rec<cr>
-nnoremap <space>dd :Denite directory_rec<cr>
-nnoremap <space>db :Denite buffer<cr>
-nnoremap <space>dr :Denite file/old<cr>
-nnoremap <space>dc :Denite command<cr>
-nnoremap <space>dx :Denite change<cr>
 nnoremap <space>dg :Denite grep<cr>
 
 " file bindings
@@ -267,16 +239,34 @@ nnoremap <space>fy :let @+ = expand("%:p")<cr>
 nnoremap <space>fY :let @+ = expand("%:p")<cr>
 " new file
 nnoremap <space>fn :new<cr>
+
 " cd to current file's directory
-nnoremap <space>fc :lcd %:p:h<cr>
+nnoremap <space>cd :lcd %:p:h<cr>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" Fuzzy Find Files
-nnoremap <space>fff :call fzf#run({'sink': 'e'})<cr>
-" Fuzzy Find Git-tracked files
-nnoremap <space>ffg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 
-nnoremap <C-p> :FZF<cr>
+" FZF bindings
+" files
+nnoremap <space>ff :Files<cr>
+" git-tracked files
+nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
+" ripgrep
+nnoremap <space>r :Rg<cr>
+" buffers
+nnoremap <space>b :Buffers<cr>
+" recent files
+nnoremap <space>fr :History<cr>
+" recent commands
+nnoremap <space>: :History:<cr>
+" recent searches
+nnoremap <space>/ :History/<cr>
+
+" commits
+nnoremap <space>g? :Commits<cr>
+" commits for current buffer
+nnoremap <space>g/ :BCommits<cr>
+
+nnoremap <C-p> :Files<cr>
 
 nnoremap <C-Tab> <C-^>
 
@@ -286,18 +276,6 @@ nnoremap <C-Tab> <C-^>
 if has("win32") || has ("win16")
     nnoremap <space>fe :silent !start explorer "%:p:h"<cr>
 endif
-
-" Ripgrep command on grep source
-if has("win32") || has ("win16")
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-            \ ['-i', '--vimgrep', '--no-heading'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-endif
-" end denite config
 
 " syntax highlighting
 syntax on
