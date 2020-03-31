@@ -253,6 +253,8 @@ nnoremap <space>ff :Files<cr>
 nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 " ripgrep
 nnoremap <space>/ :Rg<cr>
+" commands
+nnoremap <space>: :Commands<cr>
 " buffers
 nnoremap <space>b :Buffers<cr>
 
@@ -300,8 +302,8 @@ if filereadable(expand("~/.nvim_local.vim"))
 endif
 
 if !(exists("$nvim_bigfont") && exists("$nvim_smallfont"))
-    let $nvim_smallfont = "CozetteVector:h12"
-    let $nvim_bigfont = "CozetteVector:h24"
+    let $nvim_smallfont = "Fira_Mono_for_Powerline:h14"
+    let $nvim_bigfont = "Fira_Mono_for_Powerline:h24"
 endif
 
 if !(exists("$nvim_notes_file"))
