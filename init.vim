@@ -58,6 +58,7 @@ Plug 'sbdchd/neoformat'
 Plug 'Shougo/neco-syntax'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim',
+Plug 'gpanders/vim-oldfiles'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -251,15 +252,16 @@ nnoremap <space>ff :Files<cr>
 " git-tracked files
 nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 " ripgrep
-nnoremap <space>r :Rg<cr>
+nnoremap <space>/ :Rg<cr>
 " buffers
 nnoremap <space>b :Buffers<cr>
+
 " recent files
-nnoremap <space>fr :History<cr>
+nnoremap <space>rf :History<cr>
 " recent commands
-nnoremap <space>: :History:<cr>
+nnoremap <space>r: :History:<cr>
 " recent searches
-nnoremap <space>/ :History/<cr>
+nnoremap <space>r/ :History/<cr>
 
 " commits
 nnoremap <space>g? :Commits<cr>
