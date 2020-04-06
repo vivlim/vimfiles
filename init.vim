@@ -43,8 +43,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'tssm/fairyfloss.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -139,9 +138,12 @@ set pastetoggle=<F2>
 nnoremap <leader>< :cpf<cr>
 nnoremap <leader>> :cnf<cr>
 
-" airline config
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2 " appear immediately, don't wait for a split to be created
+" lightline config
+set noshowmode " don't need redundant "-- INSERT --"
+
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ }
 
 " windows-specific settings
 if has("win32") || has ("win16")
