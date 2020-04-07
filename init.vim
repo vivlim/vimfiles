@@ -227,7 +227,7 @@ endif
 " begin EasyMotion config
 let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)
-nmap <space><space> <Plug>(easymotion-overwin-w)
+nmap <space><space> <Plug>(easymotion-bd-w)
 " end EasyMotion config
 
 " space b to show list of buffers
