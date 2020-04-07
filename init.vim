@@ -200,8 +200,9 @@ nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
 nnoremap <space>n :NERDTreeToggle<cr>
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+nnoremap <space>N :NERDTreeFind<cr>
+"let g:NERDTreeDirArrowExpandable = '▸'
+"let g:NERDTreeDirArrowCollapsible = '▾'
 
 " halp (show normal mode bindings)
 nnoremap <space>? :nmap<cr>
@@ -314,7 +315,7 @@ if !(exists("$nvim_notes_file"))
     let $nvim_notes_file = "~/nvim-scratch.txt"
 endif
 
-execute "nnoremap <space>N :sp " . $nvim_notes_file . "<cr>"
+execute "nnoremap <space>fN :sp " . $nvim_notes_file . "<cr>"
 
 execute "set guifont=" . $nvim_smallfont
 " ctrl - and + to switch font size quickly.
