@@ -247,11 +247,24 @@ nnoremap <space>fn :new<cr>
 " cd to current file's directory
 nnoremap <space>cd :lcd %:p:h<cr>
 
+" advanced ripgrep
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --multiline --multiline-dotall --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " FZF bindings
-" files
-nnoremap <space>ff :Files 
+" files (use buffer working directory)
+nnoremap <space>ff :Files<cr>
+" files (specify directory)
+nnoremap <space>fF :Files 
 " git-tracked files
 nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 " ripgrep
