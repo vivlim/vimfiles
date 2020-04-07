@@ -250,15 +250,17 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " FZF bindings
 " files
-nnoremap <space>ff :Files<cr>
+nnoremap <space>ff :Files 
 " git-tracked files
 nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 " ripgrep
-nnoremap <space>/ :Rg<cr>
+nnoremap <space>/ :Rg 
 " commands
 nnoremap <space>: :Commands<cr>
 " buffers
 nnoremap <space>b :Buffers<cr>
+" lines in open buffers
+nnoremap <space>l :Lines<cr>
 
 " recent files
 nnoremap <space>rf :History<cr>
