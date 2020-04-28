@@ -237,15 +237,15 @@ set wildmenu
 nnoremap <space>dg :Denite grep<cr>
 
 " file bindings
-" yank path to current file
-nnoremap <space>fy :let @+ = expand("%:p")<cr>
-" yank path to current file (clipboard)
-nnoremap <space>fY :let @+ = expand("%:p")<cr>
+" yank filename
+nnoremap <space>fy :let @+ = expand("%:t")<cr>:echo "yanked filename"<cr>
+" yank file path
+nnoremap <space>fY :let @+ = expand("%:p")<cr>:echo "yanked file path"<cr>
 " new file
 nnoremap <space>fn :new<cr>
 
 " cd to current file's directory
-nnoremap <space>cd :lcd %:p:h<cr>
+nnoremap <space>cd :lcd %:p:h<cr>:echo "changed working directory to current file path"<cr>
 
 " advanced ripgrep
 function! RipgrepFzf(query, fullscreen)
@@ -291,6 +291,7 @@ nnoremap <space>g/ :BCommits<cr>
 nnoremap <C-p> :Files<cr>
 
 nnoremap <C-Tab> <C-^>
+nnoremap <space><Tab> <C-^>
 
 " previous buffer
 
