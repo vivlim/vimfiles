@@ -58,10 +58,16 @@ Plug 'Shougo/neco-syntax'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim',
 Plug 'gpanders/vim-oldfiles'
+Plug 'laher/fuzzymenu.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'fabi1cazenave/suckless.vim'
+let g:suckless_tmap = 1
+set splitbelow
+set splitright
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -271,6 +277,7 @@ nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 nnoremap <space>/ :Rg 
 " commands
 nnoremap <space>: :Commands<cr>
+nmap <Leader>p <Plug>Fzm
 " buffers
 nnoremap <space>b :Buffers<cr>
 " lines in open buffers
@@ -287,8 +294,6 @@ nnoremap <space>r/ :History/<cr>
 nnoremap <space>g? :Commits<cr>
 " commits for current buffer
 nnoremap <space>g/ :BCommits<cr>
-
-nnoremap <C-p> :Files<cr>
 
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
