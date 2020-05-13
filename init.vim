@@ -66,8 +66,20 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'fabi1cazenave/suckless.vim'
 let g:suckless_tmap = 1
+let g:suckless_mappings = {
+\        '<M-[sdf]>'      :   'SetTilingMode("[sdf]")'    ,
+\        '<M-[hjkl]>'     :    'SelectWindow("[hjkl]")'   ,
+\        '<M-[HJKL]>'     :      'MoveWindow("[hjkl]")'   ,
+\      '<C-M-[hjkl]>'     :    'ResizeWindow("[hjkl]")'   ,
+\        '<M-[oO]>'       :    'CreateWindow("[sv]")'     ,
+\        '<M-w>'          :     'CloseWindow()'           ,
+\        '<M-[123456789]>':       'SelectTab([123456789])',
+\        '<M-[!@#$%^&*(]>': 'MoveWindowToTab([123456789])',
+\      '<C-M-[123456789]>': 'CopyWindowToTab([123456789])',
+\}
 set splitbelow
 set splitright
+Plug 'fabi1cazenave/termopen.vim'
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -205,6 +217,9 @@ nnoremap <space>j <C-w>j
 nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
+" new tab shortcut
+nnoremap <M-t> :tabnew<cr>
+
 nnoremap <space>n :NERDTreeToggle<cr>
 nnoremap <space>N :NERDTreeFind<cr>
 "let g:NERDTreeDirArrowExpandable = '▸'
@@ -225,9 +240,9 @@ set shortmess+=I
 
 " open a terminal
 if has("win32") || has ("win16")
-    nnoremap <space>t :terminal powershell<cr>i
+    nnoremap <space>t :call TermOpen('powershell')<cr>
 else
-    nnoremap <space>t :terminal<cr>i
+    nnoremap <space>t :call TermOpen()<cr>
 endif
 
 " begin EasyMotion config
