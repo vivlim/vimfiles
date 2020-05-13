@@ -67,12 +67,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'fabi1cazenave/suckless.vim'
 let g:suckless_tmap = 1
 let g:suckless_mappings = {
-\        '<M-[sdf]>'      :   'SetTilingMode("[sdf]")'    ,
-\        '<M-[hjkl]>'     :    'SelectWindow("[hjkl]")'   ,
-\        '<M-[HJKL]>'     :      'MoveWindow("[hjkl]")'   ,
-\      '<C-M-[hjkl]>'     :    'ResizeWindow("[hjkl]")'   ,
+\        '<M-[zxc]>'      :   'SetTilingMode("[sdf]")'    ,
+\        '<M-[aswd]>'     :    'SelectWindow("[hjkl]")'   ,
+\        '<M-[ASWD]>'     :      'MoveWindow("[hjkl]")'   ,
+\      '<C-M-[aswd]>'     :    'ResizeWindow("[hjkl]")'   ,
 \        '<M-[oO]>'       :    'CreateWindow("[sv]")'     ,
-\        '<M-w>'          :     'CloseWindow()'           ,
+\        '<M-C>'          :     'CloseWindow()'           ,
 \        '<M-[123456789]>':       'SelectTab([123456789])',
 \        '<M-[!@#$%^&*(]>': 'MoveWindowToTab([123456789])',
 \      '<C-M-[123456789]>': 'CopyWindowToTab([123456789])',
