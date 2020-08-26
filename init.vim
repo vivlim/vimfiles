@@ -24,8 +24,12 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set timeoutlen=250
 
+set clipboard=unnamedplus
+
 
 "set autochdir " chdir to current file
+" different variant to automatically chdir
+autocmd BufEnter * silent! lcd %:p:h
 
 " jk to leave insert mode.
 inoremap jk <ESC>
@@ -168,6 +172,10 @@ let g:lightline = {
 
 " windows-specific settings
 if has("win32") || has ("win16")
+    " on windows, get a fill path from the clipboard, remove quotes, and try to
+    " open it in a split
+    nnoremap <space>fo :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
+
 else
     " set theme if we aren't on windows, because there are terminals that have 256 color support...
     " on windows, defer setting this to gvimrc.
@@ -181,14 +189,11 @@ endif
 
 " windows-style cut,copy,paste
 "nnoremap <C-v> "+gp
-inoremap <C-v> <esc>"+gpa
+"inoremap <C-v> <esc>"+gpa
 "nnoremap <C-x> "+d
 "nnoremap <C-c> "+y
-vnoremap <C-c> "+y
+"vnoremap <C-c> "+y
 
-" on windows, get a fill path from the clipboard, remove quotes, and try to
-" open it in a split
-nnoremap <space>fo :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
 
 " make managing configs easier
 nnoremap <space>ce :e $MYVIMRC<cr>
@@ -235,7 +240,7 @@ nnoremap <space>? :nmap<cr>
 " mind :thinking:
 " trying it again. it lagged in vsvim because something else was locking the
 " clipboard (??) but maybe it'll be ok.
-set clipboard=unnamed
+"set clipboard=unnamed
 
 autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
