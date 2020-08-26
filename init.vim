@@ -366,9 +366,9 @@ nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 
 " what if you didn't need to chord to run any command
 nnoremap ; :
-nnoremap : ;
+"nnoremap : ;
 vnoremap ; :
-vnoremap : ;
+"vnoremap : ;
 
 
 "lua require’nvim_lsp'.rust_analyzer.setup({})
