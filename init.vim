@@ -364,8 +364,4 @@ execute "set guifont=" . $nvim_smallfont
 nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
 nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 
-" what if you didn't need to chord to run any command
-map ; :
-noremap ;; ;
-
 "lua require’nvim_lsp'.rust_analyzer.setup({})
