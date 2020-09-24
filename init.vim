@@ -168,6 +168,20 @@ set noshowmode " don't need redundant "-- INSERT --"
 
 let g:lightline = {
       \ 'colorscheme': 'landscape',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ], [ 'cwd' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'filename',  'cwd' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ] ] },
+      \ 'component': {
+      \   'cwd': '%{getcwd()}%<'
+      \ },
       \ }
 
 " windows-specific settings
