@@ -378,4 +378,7 @@ execute "set guifont=" . $nvim_smallfont
 nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
 nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 
+" Map Ctrl-Backspace to delete the previous word in insert mode.
+imap <C-BS> <C-W>
+
 "lua require’nvim_lsp'.rust_analyzer.setup({})
