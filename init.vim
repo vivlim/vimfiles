@@ -213,10 +213,6 @@ endif
 nnoremap <space>ce :e $MYVIMRC<cr>
 nnoremap <space>cr :source $MYVIMRC<cr>
 
-" full buffer cut & copy
-nnoremap <C-s-x> :%d+<cr>
-nnoremap <C-s-c> :%y+<cr>
-
 " git bindings
 nnoremap <space>gs :Gstatus<cr>
 nnoremap <space>gd :Gdiff<cr>
