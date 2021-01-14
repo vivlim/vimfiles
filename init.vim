@@ -422,7 +422,7 @@ imap <C-BS> <C-W>
 " markdown folding
 let g:markdown_folding = 1
 let g:markdown_enable_folding = 1
-autocmd FileType markdown setlocal foldcolumn=4 foldlevel=99
+autocmd FileType markdown setlocal foldcolumn=4
 
 " quick reference for folds
 " za: toggle current fold
