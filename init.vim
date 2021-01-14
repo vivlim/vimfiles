@@ -419,4 +419,17 @@ nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 " Map Ctrl-Backspace to delete the previous word in insert mode.
 imap <C-BS> <C-W>
 
+" markdown folding
+let g:markdown_folding = 1
+let g:markdown_enable_folding = 1
+autocmd FileType markdown setlocal foldcolumn=4
+autocmd FileType markdown normal zR
+
+" quick reference for folds
+" za: toggle current fold
+" zr: open all of next depth, globally
+" zR: open all folds, any depth
+" zm: close the deepest level of folds globally
+" zM: close all folds, any depth
+
 "lua require’nvim_lsp'.rust_analyzer.setup({})
