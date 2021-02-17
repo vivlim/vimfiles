@@ -92,6 +92,11 @@ Plug 'tpope/vim-surround' " mappings to interact with *surroundings* in pairs
 " cst" would change that back to "Hello world!"
 " ysiw] would wrap a word in square brackets (iw is a text object) "[Hello] world!"
 
+" Git branch viewer with tpope/fugitive integration
+" :Flog or :Flogsplit to open it 
+" g? to view bindings once open
+Plug 'rbong/vim-flog'
+
 Plug 'itchyny/lightline.vim' " status line
 Plug 'tssm/fairyfloss.vim' " theme i like
 Plug 'mbbill/undotree'
