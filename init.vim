@@ -26,7 +26,6 @@ set timeoutlen=250
 
 set clipboard=unnamedplus
 
-
 "set autochdir " chdir to current file
 " different variant to automatically chdir
 autocmd BufEnter * silent! lcd %:p:h
@@ -97,6 +96,11 @@ Plug 'tpope/vim-surround' " mappings to interact with *surroundings* in pairs
 " g? to view bindings once open
 Plug 'rbong/vim-flog'
 
+" Read or write files using sudo
+Plug 'lambdalisue/suda.vim'
+" Automatically use it when target file is not readable or writable
+let g:suda_smart_edit = 1
+
 Plug 'itchyny/lightline.vim' " status line
 Plug 'tssm/fairyfloss.vim' " theme i like
 Plug 'mbbill/undotree'
@@ -114,6 +118,8 @@ Plug 'laher/fuzzymenu.vim'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
 
 Plug 'fabi1cazenave/suckless.vim'
 let g:suckless_tmap = 1
@@ -227,9 +233,17 @@ let g:lightline = {
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ] ] },
       \ 'component': {
-      \   'cwd': '%{getcwd()}%<'
+      \   'cwd': '%{getcwd()}%<',
+      \ },
+      \ 'component_function': {
+      \   'readonly': 'LightlineReadonly',
       \ },
       \ }
+
+function! LightlineReadonly()
+  " show "suda" in the status line if editing file via suda
+  return &readonly && &filetype !=# 'help' ? 'RO' : match(expand('%:p'), '^suda://') >= 0 ? "suda" : ''
+endfunction
 
 " windows-specific settings
 if has("win32") || has ("win16")
@@ -261,7 +275,7 @@ nnoremap <space>ce :e $MYVIMRC<cr>
 nnoremap <space>cr :source $MYVIMRC<cr>
 
 " git bindings
-nnoremap <space>gs :Gstatus<cr>
+nnoremap <space>gs :Git<cr>
 nnoremap <space>gd :Gdiff<cr>
 nnoremap <space>gc :Gcommit<cr>
 nnoremap <space>gp :Git push<cr>
@@ -428,6 +442,7 @@ imap <C-BS> <C-W>
 let g:markdown_folding = 1
 let g:markdown_enable_folding = 1
 autocmd FileType markdown setlocal foldcolumn=4
+set foldlevel=3 " automatically open 3 levels of folds
 
 " quick reference for folds
 " za: toggle current fold
