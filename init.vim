@@ -140,6 +140,7 @@ let g:suckless_mappings = {
 set splitbelow
 set splitright
 Plug 'fabi1cazenave/termopen.vim'
+let g:termopen_autoinsert = 0 " do not automatically enter insert mode when moving to terminals
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
