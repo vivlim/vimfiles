@@ -121,24 +121,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
 
-Plug 'fabi1cazenave/suckless.vim'
-let g:suckless_tmap = 1
-let g:suckless_mappings = {
-\        '<M-[zxc]>'      :   'SetTilingMode("[sdf]")'    ,
-\        '<M-[aswd]>'     :    'SelectWindow("[hjkl]")'   ,
-\        '<M-[ASWD]>'     :      'MoveWindow("[hjkl]")'   ,
-\      '<C-M-[aswd]>'     :    'ResizeWindow("[hjkl]")'   ,
-\        '<M-[hjkl]>'     :    'SelectWindow("[hjkl]")'   ,
-\        '<M-[HJKL]>'     :      'MoveWindow("[hjkl]")'   ,
-\      '<C-M-[hjkl]>'     :    'ResizeWindow("[hjkl]")'   ,
-\        '<M-[oO]>'       :    'CreateWindow("[sv]")'     ,
-\        '<M-C>'          :     'CloseWindow()'           ,
-\        '<M-[123456789]>':       'SelectTab([123456789])',
-\        '<M-[!@#$%^&*(]>': 'MoveWindowToTab([123456789])',
-\      '<C-M-[123456789]>': 'CopyWindowToTab([123456789])',
-\}
-set splitbelow
-set splitright
 Plug 'fabi1cazenave/termopen.vim'
 let g:termopen_autoinsert = 0 " do not automatically enter insert mode when moving to terminals
 
