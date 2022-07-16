@@ -280,7 +280,7 @@ nnoremap <space>k <C-w>k
 nnoremap <space>l <C-w>l
 
 " new tab shortcut
-nnoremap <M-t> :tabnew<cr>
+nnoremap <space>T :tabnew<cr>
 
 nnoremap <space>n :NERDTreeToggle<cr>
 nnoremap <space>N :NERDTreeFind<cr>
