@@ -24,6 +24,8 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set timeoutlen=250
 
+set mouse=a " meese
+
 set clipboard=unnamedplus
 
 "set autochdir " chdir to current file
