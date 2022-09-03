@@ -104,19 +104,28 @@ Plug 'lambdalisue/suda.vim'
 let g:suda_smart_edit = 1
 
 Plug 'itchyny/lightline.vim' " status line
-Plug 'tssm/fairyfloss.vim' " theme i like
+Plug 'theacodes/witchhazel' " theme
 Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
-Plug 'liuchengxu/vim-which-key'
 Plug 'sbdchd/neoformat'
 Plug 'Shougo/neco-syntax'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim',
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim',
+
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+
 Plug 'gpanders/vim-oldfiles'
 Plug 'laher/fuzzymenu.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Vim Script
+Plug 'folke/which-key.nvim', {'branch': 'main'}
+
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -144,7 +153,7 @@ else
 endif
 
 let g:mapleader = "\<Space>"
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+"nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -242,8 +251,8 @@ else
 
     if $COLORTERM == "truecolor"
         set termguicolors
-        colorscheme fairyfloss
-        let g:airline_theme = "fairyfloss"
+        colorscheme witchhazel-hypercolor
+        let g:airline_theme = "witchhazel"
     endif
 endif
 
@@ -268,7 +277,7 @@ nnoremap <space>gP :Git pull<cr>
 nnoremap <space>gf :Git fetch<cr>
 nnoremap <space>gh :0Glog<cr>
 nnoremap <space>gl :Gclog<cr>
-nnoremap <space>gb :Git blame<cr>
+nnoremap <space>gB :Git blame<cr>
 nnoremap <space>ga :Gwrite<cr>
 
 " toggle undotree
@@ -347,32 +356,34 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " FZF bindings
 " files (use buffer working directory)
-nnoremap <space>ff :Files<cr>
+nnoremap <space>ff :Telescope find_files<cr>
 " files (specify directory)
 nnoremap <space>fF :Files 
 " git-tracked files
 nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
 " ripgrep
-nnoremap <space>/ :Rg 
+nnoremap <space>/ :Telescope live_grep<cr>
 " commands
 nnoremap <space>: :Commands<cr>
+nnoremap <space>: :lua require'telescope.builtin'.builtin{}<cr>
 nmap <Leader>p <Plug>Fzm
 " buffers
-nnoremap <space>b :Buffers<cr>
+nnoremap <space>b :Telescope buffers<cr>
 " lines in open buffers
 nnoremap <space>l :Lines<cr>
 
 " recent files
-nnoremap <space>rf :History<cr>
+nnoremap <space>rf :lua require'telescope.builtin'.oldfiles{}<cr>
 " recent commands
-nnoremap <space>r: :History:<cr>
+nnoremap <space>r: :lua require'telescope.builtin'.command_history{}<cr>
 " recent searches
-nnoremap <space>r/ :History/<cr>
+nnoremap <space>r/ :lua require'telescope.builtin'.search_history{}<cr>
 
 " commits
-nnoremap <space>g? :Commits<cr>
+nnoremap <space>g? :lua require'telescope.builtin'.git_commits{}<cr>
 " commits for current buffer
-nnoremap <space>g/ :BCommits<cr>
+nnoremap <space>g/ :lua require'telescope.builtin'.git_bcommits{}<cr>
+nnoremap <space>gb :lua require'telescope.builtin'.git_branches{}<cr>
 
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
@@ -394,8 +405,8 @@ let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 set background=dark
-colorscheme fairyfloss
-let g:airline_theme = "fairyfloss"
+colorscheme witchhazel-hypercolor
+let g:airline_theme = "witchhazel"
 "set guifont=Fira\ Mono\ for\ Powerline:h14
 "set guifont=CozetteVector:h24
 
@@ -437,3 +448,11 @@ set foldlevel=3 " automatically open 3 levels of folds
 " zM: close all folds, any depth
 
 "lua require’nvim_lsp'.rust_analyzer.setup({})
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
