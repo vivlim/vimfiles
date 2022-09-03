@@ -22,7 +22,7 @@ set smarttab      " insert tabs on the start of a line according to
                   "    shiftwidth, not tabstop
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
-set timeoutlen=250
+set timeoutlen=500
 
 set mouse=a " meese
 
@@ -354,36 +354,7 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-" FZF bindings
-" files (use buffer working directory)
-nnoremap <space>ff :Telescope find_files<cr>
-" files (specify directory)
-nnoremap <space>fF :Files 
-" git-tracked files
-nnoremap <space>fg :call fzf#run({'source': 'git ls-files', 'sink': 'e'})<cr>
-" ripgrep
-nnoremap <space>/ :Telescope live_grep<cr>
-" commands
-nnoremap <space>: :Commands<cr>
-nnoremap <space>: :lua require'telescope.builtin'.builtin{}<cr>
 nmap <Leader>p <Plug>Fzm
-" buffers
-nnoremap <space>b :Telescope buffers<cr>
-" lines in open buffers
-nnoremap <space>l :Lines<cr>
-
-" recent files
-nnoremap <space>rf :lua require'telescope.builtin'.oldfiles{}<cr>
-" recent commands
-nnoremap <space>r: :lua require'telescope.builtin'.command_history{}<cr>
-" recent searches
-nnoremap <space>r/ :lua require'telescope.builtin'.search_history{}<cr>
-
-" commits
-nnoremap <space>g? :lua require'telescope.builtin'.git_commits{}<cr>
-" commits for current buffer
-nnoremap <space>g/ :lua require'telescope.builtin'.git_bcommits{}<cr>
-nnoremap <space>gb :lua require'telescope.builtin'.git_branches{}<cr>
 
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
@@ -450,9 +421,35 @@ set foldlevel=3 " automatically open 3 levels of folds
 "lua require’nvim_lsp'.rust_analyzer.setup({})
 
 lua << EOF
-  require("which-key").setup {
+  local ts = require("telescope.builtin")
+  local wk = require("which-key")
+  wk.setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+  wk.register({
+    f = {
+        name = "file",
+        f = { function() ts.find_files{} end, "find file" },
+        F = { "(todo: find file in path)" },
+        g = { "(todo: git-tracked files?)" },
+        ["/"] = { function() ts.live_grep{} end, "live grep" },
+    },
+    r = {
+        name = "recent",
+        f = { function() ts.oldfiles{} end, "files" },
+        [":"] = { function() ts.command_history{} end, "commands" },
+        ["/"] = { function() ts.search_history{} end, "searches" },
+    },
+    g = {
+        name = "git",
+        ["?"] = { function() ts.git_commits{} end, "fzf commits" },
+        ["/"] = { function() ts.git_bcommits{} end, "fzf buffer commits" },
+        b = { function() ts.git_branches{} end, "fzf branches" },
+    },
+    ["/"] = { function() ts.current_buffer_fuzzy_find{} end, "current buffer fzf" },
+    b = { function() ts.buffers{} end, "telescope buffers" },
+    [":"] = { function() ts.builtin{} end, "telescope pickers" },
+  }, { prefix = "<space>" })
 EOF
