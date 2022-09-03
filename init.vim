@@ -119,6 +119,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
+Plug 'neovim/nvim-lspconfig'
+
+
 Plug 'gpanders/vim-oldfiles'
 Plug 'laher/fuzzymenu.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -423,6 +426,8 @@ set foldlevel=3 " automatically open 3 levels of folds
 lua << EOF
   local ts = require("telescope.builtin")
   local wk = require("which-key")
+  local lsp = require("lspconfig")
+
   wk.setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
@@ -452,4 +457,8 @@ lua << EOF
     b = { function() ts.buffers{} end, "telescope buffers" },
     [":"] = { function() ts.builtin{} end, "telescope pickers" },
   }, { prefix = "<space>" })
+
+  lsp.nil_ls.setup{
+    autostart = true
+  }
 EOF
