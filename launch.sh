@@ -1,3 +1,3 @@
 #!/bin/sh
 
-MYVIMRC=./init.vim nvim -u ./init.vim
+MYVIMRC=./init.vim nvim -u ./init.vim --cmd ":set runtimepath+=`pwd`"
