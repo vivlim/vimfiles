@@ -205,7 +205,7 @@ let g:lightline = {
       \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
       \ },
       \ 'inactive': {
-      \   'left': [ [ 'filename',  'cwd' ] ],
+      \   'left': [ [ 'filename' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ] ] },
       \ 'component': {
@@ -253,7 +253,6 @@ nnoremap <space>cr :source $MYVIMRC<cr>
 " git bindings
 nnoremap <space>gs :Git<cr>
 nnoremap <space>gd :Gdiff<cr>
-nnoremap <space>gc :Gcommit<cr>
 nnoremap <space>gp :Git push<cr>
 nnoremap <space>gP :Git pull<cr>
 nnoremap <space>gf :Git fetch<cr>
@@ -357,6 +356,9 @@ execute "set guifont=" . $nvim_smallfont
 " ctrl - and + to switch font size quickly.
 nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
 nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
+
+set winblend=15
+set pumblend=15
 
 " Map Ctrl-Backspace to delete the previous word in insert mode.
 imap <C-BS> <C-W>
