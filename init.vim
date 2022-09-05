@@ -5,7 +5,6 @@ filetype off                  " required
 set encoding=utf-8
 set list listchars=tab:→\ ,trail:·
 
-set nocompatible
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start
                   " allow backspacing over everything in insert mode
@@ -30,7 +29,7 @@ set clipboard=unnamedplus
 
 "set autochdir " chdir to current file
 " different variant to automatically chdir
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 
 " jk to leave insert mode.
 inoremap jk <ESC>
@@ -111,8 +110,6 @@ Plug 'pelodelfuego/vim-swoop'
 Plug 'easymotion/vim-easymotion'
 Plug 'sbdchd/neoformat'
 Plug 'Shougo/neco-syntax'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim',
 
 "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
@@ -132,30 +129,11 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 
 Plug 'gpanders/vim-oldfiles'
-Plug 'laher/fuzzymenu.vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Vim Script
 Plug 'folke/which-key.nvim', {'branch': 'main'}
-
-
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'davidgranstrom/scnvim', { 'do': {-> scnvim#install() } }
 
 Plug 'fabi1cazenave/termopen.vim'
 let g:termopen_autoinsert = 0 " do not automatically enter insert mode when moving to terminals
-
-if has('nvim')
-  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/denite.nvim'
-  "Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 if has("win32") || has ("win16")
     "Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
@@ -205,14 +183,6 @@ nnoremap <leader><space> :noh<cr>
 
 " leader + w: re-hardwrap text
 nnoremap <leader>w gqip
-
-" tab binds
-nnoremap <leader>, :tabp<cr>
-nnoremap <leader>. :tabn<cr>
-
-" j and k move up and down screen lines, not file lines.
-" nnoremap j gj
-" nnoremap k gk
 
 filetype on
 filetype plugin on
@@ -305,11 +275,6 @@ nnoremap <space>l <C-w>l
 " new tab shortcut
 nnoremap <space>T :tabnew<cr>
 
-nnoremap <space>n :NERDTreeToggle<cr>
-nnoremap <space>N :NERDTreeFind<cr>
-"let g:NERDTreeDirArrowExpandable = '▸'
-"let g:NERDTreeDirArrowCollapsible = '▾'
-
 " halp (show normal mode bindings)
 nnoremap <space>? :nmap<cr>
 
@@ -336,12 +301,6 @@ map <space><space> <Plug>(easymotion-bd-w)
 nmap <space><space> <Plug>(easymotion-bd-w)
 " end EasyMotion config
 
-" space b to show list of buffers
-set wildcharm=<C-z>
-set wildmenu
-
-nnoremap <space>dg :Denite grep<cr>
-
 " file bindings
 " yank filename
 nnoremap <space>fy :let @+ = expand("%:t")<cr>:echo "yanked filename"<cr>
@@ -352,21 +311,6 @@ nnoremap <space>fn :new<cr>
 
 " cd to current file's directory
 nnoremap <space>cd :lcd %:p:h<cr>:echo "changed working directory to current file path"<cr>
-
-" advanced ripgrep
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --multiline --multiline-dotall --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
-nmap <Leader>p <Plug>Fzm
 
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
@@ -487,7 +431,7 @@ lua << EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- TAB to Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
