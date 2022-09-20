@@ -195,21 +195,46 @@ nnoremap <leader>> :cnf<cr>
 " lightline config
 set noshowmode " don't need redundant "-- INSERT --"
 
+if exists('*GetTabCwd')
+    delfunction GetTabCwd
+endif
+
+function! GetTabCwd(tabNum)
+    return getcwd()
+endfunction
+
+set showtabline=2 " always show tabline
+
 let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ], [ 'cwd' ] ],
+      \             [ 'readonly', 'relativepath', 'modified' ], [  ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
       \ },
       \ 'inactive': {
-      \   'left': [ [ 'filename' ] ],
+      \   'left': [ [ 'relativepath' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ] ] },
+      \ 'tab': {
+      \   'active': [ 'tabnum', 'filename', 'modified' ],
+      \   'inactive': [ 'tabnum', 'filename', 'modified']
+      \              },
+      \ 'tabline': {
+      \   'left': [ [ 'tabs' ] ],
+      \   'right': [ [ 'cwd' ] ],
+      \ },
       \ 'component': {
       \   'cwd': '%{getcwd()}%<',
+      \ },
+      \ 'tab_component_function': {
+      \ 'filename': 'lightline#tab#filename',
+      \ 'modified': 'lightline#tab#modified',
+      \ 'readonly': 'lightline#tab#readonly',
+      \ 'tabnum': 'lightline#tab#tabnum',
+      \   'cwd': 'GetTabCwd',
       \ },
       \ 'component_function': {
       \   'readonly': 'LightlineReadonly',
@@ -234,7 +259,6 @@ else
     if $COLORTERM == "truecolor"
         set termguicolors
         colorscheme witchhazel-hypercolor-viv
-        let g:airline_theme = "witchhazel"
     endif
 endif
 
@@ -245,10 +269,20 @@ endif
 "nnoremap <C-c> "+y
 "vnoremap <C-c> "+y
 
+if !exists('*ReloadMyConfig')
+    function! ReloadMyConfig()
+        source $MYVIMRC
+
+        " https://github.com/itchyny/lightline.vim/issues/241
+        call lightline#init()
+        call lightline#colorscheme()
+        call lightline#update()
+    endfunction
+endif
 
 " make managing configs easier
 nnoremap <space>ce :e $MYVIMRC<cr>
-nnoremap <space>cr :source $MYVIMRC<cr>
+nnoremap <space>cr :call ReloadMyConfig()<cr>
 
 " git bindings
 nnoremap <space>gs :Git<cr>
@@ -332,7 +366,6 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 set background=dark
 colorscheme witchhazel-hypercolor-viv
-let g:airline_theme = "witchhazel"
 "set guifont=Fira\ Mono\ for\ Powerline:h14
 "set guifont=CozetteVector:h24
 
