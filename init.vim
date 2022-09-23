@@ -412,10 +412,19 @@ set foldlevel=3 " automatically open 3 levels of folds
 "lua require’nvim_lsp'.rust_analyzer.setup({})
 
 lua << EOF
-  local ts = require("telescope.builtin")
   local wk = require("which-key")
   local lsp = require("lspconfig")
   local cmp = require("cmp")
+  local telescope = require("telescope")
+  telescope.setup{
+    defaults = {
+        layout_strategy = 'vertical',
+        layout_config = {
+            vertical = {width = 0.8}
+        },
+    },
+  }
+  local ts = require("telescope.builtin")
 
   wk.setup {
     -- your configuration comes here
@@ -440,6 +449,7 @@ lua << EOF
         name = "git",
         ["?"] = { function() ts.git_commits{} end, "fzf commits" },
         ["/"] = { function() ts.git_bcommits{} end, "fzf buffer commits" },
+        Q = { ":Gllog --source --all -i -G ", "get commits with changes matching regex" },
         b = { function() ts.git_branches{} end, "fzf branches" },
     },
     ["/"] = { function() ts.current_buffer_fuzzy_find{} end, "current buffer fzf" },
