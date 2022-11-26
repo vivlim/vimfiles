@@ -132,6 +132,8 @@ Plug 'gpanders/vim-oldfiles'
 
 Plug 'folke/which-key.nvim', {'branch': 'main'}
 
+Plug 'ojroques/nvim-osc52'
+
 Plug 'fabi1cazenave/termopen.vim'
 let g:termopen_autoinsert = 0 " do not automatically enter insert mode when moving to terminals
 
@@ -554,4 +556,12 @@ lua << EOF
         ["rust-analyzer"] = {}
     }
   }
+
+  function copy()
+    if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
+      require('osc52').copy_register('+')
+    end
+  end
+
+  vim.api.nvim_create_autocmd('TextYankPost', {callback = copy})
 EOF
