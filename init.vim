@@ -80,6 +80,8 @@ set ttyfast
 " leader + space: drop hilights
 nnoremap <leader><space> :noh<cr>
 
+nnoremap <leader>M :make<cr>
+
 " leader + w: re-hardwrap text
 nnoremap <leader>w gqip
 
