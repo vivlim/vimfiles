@@ -34,8 +34,9 @@ set clipboard=unnamedplus
 " jk to leave insert mode.
 inoremap jk <ESC>
 
-" and terminal mode too~
-tnoremap jk <C-\><C-n>
+" Ctrl+(jk) to get out of a terminal, allowing us to use j and k normally most
+" of the time. this should be OK since we can use <C-w> regardless of mode
+tnoremap <C-j><C-k> <C-\><C-n>
 
 if has("win32") || has ("win16")
     let $VIMFILESDIR=$USERPROFILE.'/AppData/Local/nvim'
