@@ -15,7 +15,7 @@ return {
   -- gc (operator pending) - target a comment
   -- :g/TODO/Commentary - use in a :global invocation
 
-"tpope/vim-vinegar", -- enhanced netrw
+-- "tpope/vim-vinegar", -- enhanced netrw
   -- Press - in any buffer to hop up to the directory listing and seek to the file you just came from. Keep bouncing to go up, up, up. Having rapid directory access available changes everything.
   -- All that annoying crap at the top is turned off, leaving you with nothing but a list of files. This is surprisingly disorienting, but ultimately very liberating. Press I to toggle until you adapt.
   -- The oddly C-biased default sort order is replaced with a sensible application of 'suffixes'.

@@ -12,6 +12,8 @@
   "nvim-cmp": { "branch": "main", "commit": "538e37ba87284942c1d76ed38dd497e54e65b891" },
   "nvim-lspconfig": { "branch": "master", "commit": "eb81c7ea08d6f01d5fa4cf09e58c708efadf9b2f" },
   "nvim-osc52": { "branch": "main", "commit": "89307570b3bffe115d8b6b6fd3a4066cde0ba2d7" },
+  "nvim-tree.lua": { "branch": "master", "commit": "141c0f97c35f274031294267808ada59bb5fb08e" },
+  "nvim-web-devicons": { "branch": "master", "commit": "a1425903ab52a0a0460622519e827f224e5b4fee" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "suda.vim": { "branch": "master", "commit": "8b0fc3711760195aba104e2d190cff9af8267052" },
   "tagbar": { "branch": "master", "commit": "5d6990e4fc5b3e3b88a3af90146f2561c4f6d828" },
@@ -31,7 +33,6 @@
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-swoop": { "branch": "master", "commit": "99c9a7a40d34f89391fc0ac2a9f0260dd73a7d51" },
   "vim-tbone": { "branch": "master", "commit": "79d28199d5edf70337957e13942b5d970755d943" },
-  "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
   "witchhazel": { "branch": "scratch", "commit": "ae46459a9624b9f3589d8d9141b0fe3304162348" }
 }

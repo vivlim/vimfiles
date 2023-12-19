@@ -17,6 +17,7 @@ return {
                 F = { "(todo: find file in path)" },
                 g = { "(todo: git-tracked files?)" },
                 ["/"] = { function() ts.live_grep{} end, "live grep" },
+                t = { ":NvimTreeToggle<cr>", "file tree" },
             },
             r = {
                 name = "recent",
