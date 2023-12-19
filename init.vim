@@ -23,6 +23,8 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set timeoutlen=500
 
+set exrc " execute ./.nvim.lua, ./.nvimrc, ./.exrc when `:trust`ed.
+
 set mouse=a " meese
 
 set clipboard=unnamedplus
