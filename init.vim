@@ -199,13 +199,6 @@ nnoremap <space>ga :Gwrite<cr>
 " toggle undotree
 nnoremap <space>u :UndotreeToggle<cr>
 
-" remap space,w to c-w
-nnoremap <space>w <C-w>
-nnoremap <space>h <C-w>h
-nnoremap <space>j <C-w>j
-nnoremap <space>k <C-w>k
-nnoremap <space>l <C-w>l
-
 " new tab shortcut
 nnoremap <space>T :tabnew<cr>
 

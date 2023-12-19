@@ -68,9 +68,8 @@ return {
 "pelodelfuego/vim-swoop",
 "easymotion/vim-easymotion",
 "sbdchd/neoformat",
-"Shougo/neco-syntax",
+-- "Shougo/neco-syntax",
 
--- "nvim-treesitter/nvim-treesitter", {'do': ':TSUpdate'}
 -- "nvim-telescope/telescope-fzf-native.nvim", { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' } -- TODO migration
 
 "neovim/nvim-lspconfig",
