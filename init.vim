@@ -218,12 +218,6 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
 
-" begin EasyMotion config
-let g:EasyMotion_do_mapping = 0 " disable default map
-map <space><space> <Plug>(easymotion-bd-w)
-nmap <space><space> <Plug>(easymotion-bd-w)
-" end EasyMotion config
-
 " file bindings
 " yank filename
 nnoremap <space>fy :let @+ = expand("%:t")<cr>:echo "yanked filename"<cr>

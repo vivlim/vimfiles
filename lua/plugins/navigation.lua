@@ -53,5 +53,15 @@ return {
 
             require("nvim-tree").setup {on_attach = my_on_attach}
         end,
+    },
+    {
+        "ggandor/leap.nvim", -- https://github.com/ggandor/leap.nvim
+        init = function()
+            local leap = require('leap')
+            local modes = {'n', 'x', 'o'}
+            leap.add_default_mappings()
+            vim.keymap.set(modes, 's', '<Plug>(leap-forward-to)')
+            vim.keymap.set(modes, 'S', '<Plug>(leap-backward-to)')
+        end,
     }
 }
