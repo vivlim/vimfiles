@@ -43,112 +43,9 @@ else
     let $VIMFILESDIR=$HOME.'/.nvim'
 endif
 
-call plug#begin(stdpath('data') . '/plugged')
-
-" plugin on GitHub repo
-Plug 'tpope/vim-fugitive' " git wrapper
-  " TODO: doc
-
-Plug 'tpope/vim-sleuth' " automatic shiftwidth/expandtab
-
-Plug 'tpope/vim-commentary' " comments
-  " gcc - comment out a line
-  " gc - comment out target of a motion
-  " gc (in visual) - comment selection
-  " gc (operator pending) - target a comment
-  " :g/TODO/Commentary - use in a :global invocation
-
-Plug 'tpope/vim-vinegar' " enhanced netrw
-  " Press - in any buffer to hop up to the directory listing and seek to the file you just came from. Keep bouncing to go up, up, up. Having rapid directory access available changes everything.
-  " All that annoying crap at the top is turned off, leaving you with nothing but a list of files. This is surprisingly disorienting, but ultimately very liberating. Press I to toggle until you adapt.
-  " The oddly C-biased default sort order is replaced with a sensible application of 'suffixes'.
-  " File hiding: files are not listed that match with one of the patterns in 'wildignore'.
-  " If you put let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' in your vimrc, vinegar will initialize with dot files hidden. Press gh to toggle dot file hiding.
-  " Press . on a file to pre-populate it at the end of a : command line. This is great, for example, to quickly initiate a :grep of the file or directory under the cursor. There's also !, which starts the line off with a bang. Type !chmod +x and get :!chmod +x path/to/file.
-  " Press y. to yank an absolute path for the file under the cursor.
-  " Press ~ to go home.
-  " Use Vim's built-in CTRL-^ (CTRL-6) for switching back to the previous buffer from the netrw buffer.
-
-Plug 'tpope/vim-obsession' " session recording
-  " Use :Obsess (with optional file/directory name) to start recording to a session file and :Obsess! to stop and throw it away. That's it. Load a session in the usual manner: vim -S, or :source it.
-
-Plug 'tpope/vim-tbone' " tmux interaction
-  " :Tmux lets you call any old tmux command (with really good tab complete).
-  " :Tyank and :Tput give you direct access to tmux buffers.
-  " :Twrite sends a chunk of text to another pane. Give an argument like windowtitle.2, top-right, or last, or let it default to the previously given argument.
-  " :Tattach lets you use a specific tmux session from outside of it.
-
-Plug 'tpope/vim-jdaddy' " json manipulation and pretty printing
-  " aj provides a text object for the outermost JSON object, array, string, number, or keyword.
-  " gqaj "pretty prints" (wraps/indents/sorts keys/otherwise cleans up) the JSON construct under the cursor.
-  " gwaj takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
-  " There are also ij variants that target innermost rather than outermost JSON construct.
-
-Plug 'tpope/vim-repeat' " remap . so that it works with plugins
-Plug 'tpope/vim-surround' " mappings to interact with *surroundings* in pairs
-" type quickly, there's a timeout.
-" cs"' inside of "Hello World!" changes it to 'Hello world!'
-" cs'<q> would change that to <q>Hello world!</q>
-" cst" would change that back to "Hello world!"
-" ysiw] would wrap a word in square brackets (iw is a text object) "[Hello] world!"
-
-" Git branch viewer with tpope/fugitive integration
-" :Flog or :Flogsplit to open it 
-" g? to view bindings once open
-Plug 'rbong/vim-flog'
-
-" Read or write files using sudo
-Plug 'lambdalisue/suda.vim'
-" Automatically use it when target file is not readable or writable
-" let g:suda_smart_edit = 1
-
-Plug 'itchyny/lightline.vim' " status line
-Plug 'vivlim/witchhazel', { 'branch': 'scratch' }
-Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
-Plug 'pelodelfuego/vim-swoop'
-Plug 'easymotion/vim-easymotion'
-Plug 'sbdchd/neoformat'
-Plug 'Shougo/neco-syntax'
-
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
-Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-" For luasnip users.
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
-
-
-Plug 'gpanders/vim-oldfiles'
-
-Plug 'folke/which-key.nvim', {'branch': 'main'}
-
-Plug 'ojroques/nvim-osc52'
-
-Plug 'fabi1cazenave/termopen.vim'
-let g:termopen_autoinsert = 0 " do not automatically enter insert mode when moving to terminals
-
-if has("win32") || has ("win16")
-    "Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
-else
-    "Plug 'wellle/tmux-complete.vim'
-    "Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-endif
-
 let g:mapleader = "\<Space>"
 "nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 
-" All of your Plugins must be added before the following line
-call plug#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -414,6 +311,149 @@ set foldlevel=3 " automatically open 3 levels of folds
 "lua require’nvim_lsp'.rust_analyzer.setup({})
 
 lua << EOF
+-- begin 'lazy.nvim' package manager
+-- begin bootstrap
+    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+    end
+    vim.opt.rtp:prepend(lazypath)
+-- end bootstrap
+plugins = {
+    "folke/which-key.nvim",
+
+
+-- begin plugins that were configured by Plug
+-- plugin on GitHub repo
+"tpope/vim-fugitive", -- git wrapper
+  -- TODO: doc
+
+"tpope/vim-sleuth", -- automatic shiftwidth/expandtab
+
+"tpope/vim-commentary", -- comments
+  -- gcc - comment out a line
+  -- gc - comment out target of a motion
+  -- gc (in visual) - comment selection
+  -- gc (operator pending) - target a comment
+  -- :g/TODO/Commentary - use in a :global invocation
+
+"tpope/vim-vinegar", -- enhanced netrw
+  -- Press - in any buffer to hop up to the directory listing and seek to the file you just came from. Keep bouncing to go up, up, up. Having rapid directory access available changes everything.
+  -- All that annoying crap at the top is turned off, leaving you with nothing but a list of files. This is surprisingly disorienting, but ultimately very liberating. Press I to toggle until you adapt.
+  -- The oddly C-biased default sort order is replaced with a sensible application of 'suffixes'.
+  -- File hiding: files are not listed that match with one of the patterns in 'wildignore'.
+  -- If you put let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' in your vimrc, vinegar will initialize with dot files hidden. Press gh to toggle dot file hiding.
+  -- Press . on a file to pre-populate it at the end of a : command line. This is great, for example, to quickly initiate a :grep of the file or directory under the cursor. There's also !, which starts the line off with a bang. Type !chmod +x and get :!chmod +x path/to/file.
+  -- Press y. to yank an absolute path for the file under the cursor.
+  -- Press ~ to go home.
+  -- Use Vim's built-in CTRL-^ (CTRL-6) for switching back to the previous buffer from the netrw buffer.
+
+"tpope/vim-obsession", -- session recording
+  -- Use :Obsess (with optional file/directory name) to start recording to a session file and :Obsess! to stop and throw it away. That's it. Load a session in the usual manner: vim -S, or :source it.
+
+"tpope/vim-tbone", -- tmux interaction
+  -- :Tmux lets you call any old tmux command (with really good tab complete).
+  -- :Tyank and :Tput give you direct access to tmux buffers.
+  -- :Twrite sends a chunk of text to another pane. Give an argument like windowtitle.2, top-right, or last, or let it default to the previously given argument.
+  -- :Tattach lets you use a specific tmux session from outside of it.
+
+"tpope/vim-jdaddy", -- json manipulation and pretty printing
+  -- aj provides a text object for the outermost JSON object, array, string, number, or keyword.
+  -- gqaj "pretty prints" (wraps/indents/sorts keys/otherwise cleans up) the JSON construct under the cursor.
+  -- gwaj takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
+  -- There are also ij variants that target innermost rather than outermost JSON construct.
+
+"tpope/vim-repeat", -- remap . so that it works with plugins
+"tpope/vim-surround", -- mappings to interact with *surroundings* in pairs
+-- type quickly, there's a timeout.
+-- cs"' inside of "Hello World!" changes it to 'Hello world!"
+-- cs'<q> would change that to <q>Hello world!</q>
+-- cst" would change that back to "Hello world!"
+-- ysiw] would wrap a word in square brackets (iw is a text object) "[Hello] world!"
+
+-- Git branch viewer with tpope/fugitive integration
+-- :Flog or :Flogsplit to open it 
+-- g? to view bindings once open
+"rbong/vim-flog",
+
+-- Read or write files using sudo
+"lambdalisue/suda.vim",
+-- Automatically use it when target file is not readable or writable
+-- let g:suda_smart_edit = 1
+
+"itchyny/lightline.vim", -- status line
+{ "vivlim/witchhazel",
+    branch = "scratch",
+},
+"mbbill/undotree",
+"majutsushi/tagbar",
+"pelodelfuego/vim-swoop",
+"easymotion/vim-easymotion",
+"sbdchd/neoformat",
+"Shougo/neco-syntax",
+
+-- "nvim-treesitter/nvim-treesitter", {'do': ':TSUpdate'}
+{ "nvim-telescope/telescope.nvim",
+    tag = '0.1.5',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+},
+{ 'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+},
+-- "nvim-telescope/telescope-fzf-native.nvim", { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' } -- TODO migration
+
+"neovim/nvim-lspconfig",
+
+{ "hrsh7th/cmp-nvim-lsp",
+    branch = "main"
+},
+{ "hrsh7th/cmp-buffer",
+    branch = "main"
+},
+{ "hrsh7th/cmp-path",
+    branch = "main"
+},
+{ "hrsh7th/cmp-cmdline",
+    branch = "main"
+},
+{ "hrsh7th/nvim-cmp",
+    branch = "main"
+},
+-- For luasnip users.
+"L3MON4D3/LuaSnip",
+"saadparwaiz1/cmp_luasnip",
+
+
+"gpanders/vim-oldfiles",
+
+"ojroques/nvim-osc52",
+
+"fabi1cazenave/termopen.vim",
+-- TODO migration how to do this
+--let g:termopen_autoinsert = 0 -- do not automatically enter insert mode when moving to terminals
+
+
+-- end plugins that were configured by Plug
+
+    }
+
+opts = {
+    -- since the config may be managed by nix, and therefore be readonly, we store it in the data path instead.
+    -- todo: check it into the config repo, and copy it out into data during startup if it's newer.
+    lockfile = vim.fn.stdpath("data") .. "/lazy/lazy-lock.json"
+    }
+
+require("lazy").setup(plugins, opts)
+-- end 'lazy.nvim' package manager
+
+
   local wk = require("which-key")
   local lsp = require("lspconfig")
   local cmp = require("cmp")
