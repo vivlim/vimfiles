@@ -72,8 +72,6 @@ return {
 
 -- "nvim-telescope/telescope-fzf-native.nvim", { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' } -- TODO migration
 
-"neovim/nvim-lspconfig",
-
 -- For luasnip users.
 "L3MON4D3/LuaSnip",
 "saadparwaiz1/cmp_luasnip",
@@ -83,7 +81,7 @@ return {
 
 "ojroques/nvim-osc52",
 
-"fabi1cazenave/termopen.vim",
+-- "fabi1cazenave/termopen.vim",
 -- TODO migration how to do this
 --let g:termopen_autoinsert = 0 -- do not automatically enter insert mode when moving to terminals
 

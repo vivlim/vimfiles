@@ -215,13 +215,6 @@ autocmd BufWritePre,BufRead *.pasta nnoremap <ENTER> ^"+y$<cr><C-z>
 
 set shortmess+=I
 
-" open a terminal
-if has("win32") || has ("win16")
-    nnoremap <space>t :call TermOpen('powershell')<cr>
-else
-    nnoremap <space>t :call TermOpen()<cr>
-endif
-
 " begin EasyMotion config
 let g:EasyMotion_do_mapping = 0 " disable default map
 map <space><space> <Plug>(easymotion-bd-w)

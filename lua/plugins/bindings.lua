@@ -1,6 +1,6 @@
 return {
     { "folke/which-key.nvim",
-    lazy = true,
+    lazy = false,
     init = function()
         local wk = require("which-key")
         local ts = require("telescope.builtin")
