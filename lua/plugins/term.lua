@@ -1,6 +1,9 @@
 return {
   {"boltlessengineer/bufterm.nvim",
     init = function()
+      -- no line numbers in terminals.
+      vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
+
       require('bufterm').setup()
       local term = require('bufterm.terminal')
       local ui   = require('bufterm.ui')
@@ -8,15 +11,30 @@ return {
       local floating_term = term.Terminal:new({
       })
 
+      local floating_lazygit = term.Terminal:new({
+        cmd = "lazygit",
+        auto_close = true,
+        fallback_on_exit = true,
+      })
+
       vim.keymap.set({'n', 't'}, '<C-t>', function()
         floating_term:spawn()
         ui.toggle_float(floating_term.bufnr)
+        vim.api.nvim_set_option_value("number", false, {buf = floating_term.bufnr})
       end, {
         desc = 'Toggle floating window with terminal buffers',
+      })
+      vim.keymap.set({'n'}, '<space>tg', function()
+        floating_lazygit:spawn()
+        ui.toggle_float(floating_lazygit.bufnr)
+        vim.api.nvim_set_option_value("number", false, {buf = floating_lazygit.bufnr})
+      end, {
+        desc = 'Floating Lazygit',
       })
       vim.keymap.set({'n'}, '<space>tt', '<cmd>:new<cr>:terminal<cr>', {
         desc = 'New window term',
       })
+
     end,
   },
   {"willothy/flatten.nvim", -- nvim launched from a nested term will instead open the file in the parent instance.
@@ -25,7 +43,7 @@ return {
   },
   {"rebelot/terminal.nvim",
   lazy = false,
-  enabled = true,
+  enabled = false,
   init = function()
     local terminal = require("terminal")
     local term_map = require("terminal.mappings")
@@ -35,7 +53,7 @@ return {
     local lazygit = terminal.terminal:new({
         layout = { open_cmd = "float", height = 0.9, width = 0.9 },
         cmd = { "lazygit" },
-        autoclose = true,
+        autoclose = false,
     })
     vim.env["EDITOR"] = "nvr -cc close -cc split --remote-wait +'set bufhidden=wipe'"
     vim.env["GIT_EDITOR"] = "nvr -cc close -cc split --remote-wait +'set bufhidden=wipe'"
