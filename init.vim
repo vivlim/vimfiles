@@ -316,7 +316,9 @@ lua << EOF
     vim.opt.rtp:prepend(lazypath)
 -- end bootstrap
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+    change_detection = { notify = false, },
+})
 
 -- end 'lazy.nvim' package manager
 
