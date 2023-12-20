@@ -18,25 +18,37 @@ return {
         local on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+            local wk = require("which-key")
 
             -- Mappings.
             -- See `:help vim.lsp.*` for documentation on any of the below functions
-            local bufopts = { noremap=true, silent=true, buffer=bufnr }
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-            vim.keymap.set('n', '<space>h', vim.lsp.buf.signature_help, bufopts)
-            vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-            vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-            vim.keymap.set('n', '<space>wl', function()
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "lsp: hover", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('i', '<C-k>', vim.lsp.buf.hover, { desc = "lsp: hover", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>ls', vim.lsp.buf.signature_help, { desc = "lsp: sig help", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lK', vim.lsp.buf.hover, { desc = "lsp: hover (also K and c-k in ins)", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lq', vim.lsp.buf.add_workspace_folder, { desc = "lsp: + workspace folder", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>wQ', vim.lsp.buf.remove_workspace_folder, { desc = "lsp: - workspace folder", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lw', function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, bufopts)
-            vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-            vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-            vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+            end, { desc = "lsp: list workspace folders", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>li', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lt', vim.lsp.buf.type_definition, { desc = "lsp: type def'n", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lR', vim.lsp.buf.rename, { desc = "lsp: rename", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, { desc = "lsp: code actions", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>lr', vim.lsp.buf.references, { desc = "lsp: references", noremap=true, silent=true, buffer=bufnr })
             -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts) -- disabled because vim.lsp.buf.formatting is nil (maybe I was partway through installing it??)
+
+            -- label the prefix
+            wk.register({
+                l = {
+                    name = "lsp",
+                },
+            }, { prefix = "<space>" })
         end
 
         lsp.nil_ls.setup{
@@ -103,7 +115,22 @@ return {
         })
     end
 },
+{ "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  init = function()
+    -- Disable virtual_text since it's redundant due to lsp_lines.
+    vim.diagnostic.config({
+        virtual_text = false,
+    })
+    vim.keymap.set(
+        {'n'},
+        "<space>ld",
+        require("lsp_lines").toggle,
+        { desc = "toggle diagnostic lines" }
+    )
 
+    require("lsp_lines").setup()
+  end,
+},
 {"simrat39/symbols-outline.nvim",
     opts = {},
 }

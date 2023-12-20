@@ -65,7 +65,6 @@ return {
 },
 "mbbill/undotree",
 "majutsushi/tagbar",
-"pelodelfuego/vim-swoop",
 "sbdchd/neoformat",
 -- "Shougo/neco-syntax",
 
