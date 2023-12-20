@@ -234,6 +234,7 @@ nnoremap <space><Tab> <C-^>
 
 " neotree mappings
 nnoremap - :Neotree filesystem reveal=true position=current<cr>
+nnoremap <space>tf :Neotree filesystem reveal=true position=left<cr>
 " end neotree mappings
 
 " previous buffer

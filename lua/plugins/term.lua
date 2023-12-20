@@ -34,6 +34,14 @@ return {
       vim.keymap.set({'n'}, '<space>tt', '<cmd>:new<cr>:terminal<cr>', {
         desc = 'New window term',
       })
+      vim.keymap.set({'n'}, '<space>tT', function()
+        floating_term:spawn()
+        vim.cmd('split')
+        local win = vim.api.nvim_get_current_win()
+        vim.api.nvim_win_set_buf(win, floating_term.bufnr)
+      end, {
+        desc = 'New win <- floating term',
+      })
 
     end,
   },
