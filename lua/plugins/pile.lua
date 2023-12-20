@@ -42,7 +42,7 @@ return {
   -- There are also ij variants that target innermost rather than outermost JSON construct.
 
 "tpope/vim-repeat", -- remap . so that it works with plugins
-"tpope/vim-surround", -- mappings to interact with *surroundings* in pairs
+-- "tpope/vim-surround", -- mappings to interact with *surroundings* in pairs
 -- type quickly, there's a timeout.
 -- cs"' inside of "Hello World!" changes it to 'Hello world!"
 -- cs'<q> would change that to <q>Hello world!</q>
