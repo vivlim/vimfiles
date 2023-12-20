@@ -232,6 +232,10 @@ nnoremap <space>cd :lcd %:p:h<cr>:echo "changed working directory to current fil
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
 
+" neotree mappings
+nnoremap - :Neotree filesystem reveal=true position=current<cr>
+" end neotree mappings
+
 " previous buffer
 
 " on windows, add 'open path in explorer'
