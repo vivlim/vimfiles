@@ -41,6 +41,7 @@ return {
             vim.keymap.set('n', '<space>lR', vim.lsp.buf.rename, { desc = "lsp: rename", noremap=true, silent=true, buffer=bufnr })
             vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, { desc = "lsp: code actions", noremap=true, silent=true, buffer=bufnr })
             vim.keymap.set('n', '<space>lr', vim.lsp.buf.references, { desc = "lsp: references", noremap=true, silent=true, buffer=bufnr })
+            vim.keymap.set('n', '<space>l/', ":Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "lsp: search ws symbols", noremap=true, silent=true, buffer=bufnr })
             -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts) -- disabled because vim.lsp.buf.formatting is nil (maybe I was partway through installing it??)
 
             -- label the prefix

@@ -34,6 +34,8 @@ return {
             },
             ["/"] = { function() ts.current_buffer_fuzzy_find{} end, "current buffer fzf" },
             b = { function() ts.buffers{} end, "telescope buffers" },
+            d = { function() ts.diagnostics{} end, "telescope diagnostics" },
+            ["<space>"] = { function() ts.resume{} end, "telescope resume" },
             [":"] = { function() ts.builtin{} end, "telescope pickers" },
         }, { prefix = "<space>" })
         end,
