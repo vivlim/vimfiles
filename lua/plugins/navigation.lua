@@ -4,6 +4,7 @@ return {
         dependencies = {
             'nvim-telescope/telescope-fzf-native.nvim',
             'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-ui-select.nvim',
         },
         init = function()
             local telescope = require("telescope")
@@ -15,13 +16,16 @@ return {
                     },
                 },
                 extensions = {
+                    "ui-select",
                 },
             }
+            telescope.load_extension("ui-select")
         end,
     },
     { 'nvim-telescope/telescope-fzf-native.nvim',
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     },
+    -- Use telescope for vim.ui.select, e.g. code actions
     { "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         enabled = true,
