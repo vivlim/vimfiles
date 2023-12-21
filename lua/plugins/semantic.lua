@@ -1,3 +1,74 @@
+-- Extended mapping for K
+local function show_hover()
+    local filetype = vim.bo.filetype
+    if vim.tbl_contains({ 'vim','help' }, filetype) then
+        vim.cmd('h '..vim.fn.expand('<cword>'))
+    elseif vim.tbl_contains({ 'man' }, filetype) then
+        vim.cmd('Man '..vim.fn.expand('<cword>'))
+    elseif vim.fn.expand('%:t') == 'Cargo.toml' and require('crates').popup_available() then
+        require('crates').show_popup()
+    else
+        vim.lsp.buf.hover()
+    end
+end
+vim.keymap.set('n', 'K', show_hover, { desc = "lsp: hover", noremap=true, silent=true })
+vim.keymap.set('i', '<C-k>', show_hover, { desc = "lsp: hover", noremap=true, silent=true })
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local lsp_on_attach = function(client, bufnr)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    local wk = require("which-key")
+
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>ls', vim.lsp.buf.signature_help, { desc = "lsp: sig help", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lK', show_hover, { desc = "lsp: hover (also K and c-k in ins)", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lq', vim.lsp.buf.add_workspace_folder, { desc = "lsp: + workspace folder", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>wQ', vim.lsp.buf.remove_workspace_folder, { desc = "lsp: - workspace folder", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lw', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, { desc = "lsp: list workspace folders", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>li', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lt', vim.lsp.buf.type_definition, { desc = "lsp: type def'n", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lR', vim.lsp.buf.rename, { desc = "lsp: rename", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, { desc = "lsp: code actions", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>lr', vim.lsp.buf.references, { desc = "lsp: references", noremap=true, silent=true, buffer=bufnr })
+    vim.keymap.set('n', '<space>l/', ":Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "lsp: search ws symbols", noremap=true, silent=true, buffer=bufnr })
+    -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts) -- disabled because vim.lsp.buf.formatting is nil (maybe I was partway through installing it??)
+
+    -- label the prefix
+    wk.register({
+        l = {
+            name = "lsp",
+        },
+    }, { prefix = "<space>" })
+
+    -- Notify when a LSP message is received: https://www.reddit.com/r/neovim/comments/sxlkua/what_are_some_good_nvimnotify_use_cases/hxtedzz/
+    vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+        local lsp_client = vim.lsp.get_client_by_id(ctx.client_id)
+        local lvl = ({
+            'ERROR',
+            'WARN',
+            'INFO',
+            'DEBUG',
+        })[result.type]
+        require("notify")({ result.message }, lvl, {
+            title = 'LSP | ' .. lsp_client.name,
+            timeout = 10000,
+            keep = function()
+            return lvl == 'ERROR' or lvl == 'WARN'
+            end,
+        })
+    end
+end
+
 return {
 { "neovim/nvim-lspconfig",
     lazy = false,
@@ -13,64 +84,26 @@ return {
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
         vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-        -- Use an on_attach function to only map the following keys
-        -- after the language server attaches to the current buffer
-        local on_attach = function(client, bufnr)
-            -- Enable completion triggered by <c-x><c-o>
-            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-            local wk = require("which-key")
-
-            -- Mappings.
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "lsp: hover", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('i', '<C-k>', vim.lsp.buf.hover, { desc = "lsp: hover", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>ls', vim.lsp.buf.signature_help, { desc = "lsp: sig help", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lK', vim.lsp.buf.hover, { desc = "lsp: hover (also K and c-k in ins)", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lq', vim.lsp.buf.add_workspace_folder, { desc = "lsp: + workspace folder", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>wQ', vim.lsp.buf.remove_workspace_folder, { desc = "lsp: - workspace folder", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lw', function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, { desc = "lsp: list workspace folders", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lD', vim.lsp.buf.declaration, { desc = "lsp: go declaration", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition, { desc = "lsp: go definition", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>li', vim.lsp.buf.implementation, { desc = "lsp: go implementation", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lt', vim.lsp.buf.type_definition, { desc = "lsp: type def'n", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lR', vim.lsp.buf.rename, { desc = "lsp: rename", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, { desc = "lsp: code actions", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>lr', vim.lsp.buf.references, { desc = "lsp: references", noremap=true, silent=true, buffer=bufnr })
-            vim.keymap.set('n', '<space>l/', ":Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "lsp: search ws symbols", noremap=true, silent=true, buffer=bufnr })
-            -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts) -- disabled because vim.lsp.buf.formatting is nil (maybe I was partway through installing it??)
-
-            -- label the prefix
-            wk.register({
-                l = {
-                    name = "lsp",
-                },
-            }, { prefix = "<space>" })
-        end
 
         lsp.nil_ls.setup{
             autostart = true,
-            on_attach = on_attach,
+            on_attach = lsp_on_attach,
             capabilities = capabilities
         }
-        lsp.rust_analyzer.setup{
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                ["rust-analyzer"] = {}
-            }
-        }
+        -- lsp.rust_analyzer.setup{
+        --     on_attach = on_attach,
+        --     capabilities = capabilities,
+        --     settings = {
+        --         ["rust-analyzer"] = {}
+        --     }
+        -- }
         lsp.elixirls.setup {
-            on_attach = on_attach,
+            on_attach = lsp_on_attach,
             capabilities = capabilities,
             cmd = { "elixir-ls" }, -- This should be on the path if the project has a nix flake devshell & direnv configured.
         }
         lsp.lua_ls.setup {
-            on_attach = on_attach,
+            on_attach = lsp_on_attach,
             capabilities = capabilities,
             on_init = function(client)
                 local path = client.workspace_folders[1].name
@@ -134,5 +167,40 @@ return {
 },
 {"simrat39/symbols-outline.nvim",
     opts = {},
-}
+},
+{"simrat39/rust-tools.nvim",
+    opts = {
+        tools = {
+            hover_actions = {
+                auto_focus = true,
+            },
+        },
+        server = {
+            on_attach = function(client, bufnr)
+                local rt = require("rust-tools")
+                lsp_on_attach(client, bufnr)
+                vim.keymap.set('n', '<space>R', rt.runnables.runnables, { desc = "rust: runnables", noremap=true, silent=true, buffer=bufnr })
+                vim.keymap.set('n', '<space>lA', ":RustHoverActions<cr>", { desc = "rust: hover actions", noremap=true, silent=true, buffer=bufnr })
+                vim.keymap.set('n', '<space>lC', rt.open_cargo_toml.open_cargo_toml, { desc = "rust: open cargo.toml", noremap=true, silent=true, buffer=bufnr })
+            end
+        },
+    },
+},
+{"rcarriga/nvim-notify",
+    init = function()
+        local notify = require("notify")
+        notify.setup({})
+        vim.notify = notify
+    end
+},
+{"mrded/nvim-lsp-notify",
+    opts = {},
+},
+{'saecki/crates.nvim',
+    tag = 'stable',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+        require('crates').setup()
+    end,
+},
 }
