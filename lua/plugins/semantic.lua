@@ -200,7 +200,34 @@ return {
     tag = 'stable',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-        require('crates').setup()
+        local crates = require('crates')
+        crates.setup({
+            popup = {
+                autofocus = true,
+            }
+        })
+        local group = vim.api.nvim_create_augroup("cargotoml_group", { clear = true })
+        vim.api.nvim_create_autocmd("BufNew", {
+            callback = function(ev)
+                -- for debugging: require('notify')(vim.inspect(ev))
+                require('which-key').register({
+                    x = { name = "Cargo.toml specific" },
+                }, { prefix = "<space>", buffer = ev.buf, })
+                vim.keymap.set('n', '<space>xf', crates.show_features_popup, { desc = "crate features", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xi', crates.show_crate_popup, { desc = "crate info", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xv', crates.show_versions_popup, { desc = "crate versions", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xD', crates.show_dependencies_popup, { desc = "crate dependencies", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xu', crates.update_crate, { desc = "update (newest compatible)", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xU', crates.upgrade_crate, { desc = "upgrade (newest)", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xr', crates.open_repository, { desc = "www: go to repository", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xw', crates.open_homepage, { desc = "www: go to homepage", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xd', crates.open_documentation, { desc = "www: go to docs", noremap=true, silent=true, buffer=ev.buf })
+                vim.keymap.set('n', '<space>xc', crates.open_crates_io, { desc = "www: go to crates.io", noremap=true, silent=true, buffer=ev.buf })
+            end,
+            group = group,
+            pattern = "*Cargo.toml",
+        })
+
     end,
 },
 }
