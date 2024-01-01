@@ -14,6 +14,7 @@ return {
             f = {
                 name = "file",
                 f = { function() ts.find_files{} end, "find file" },
+                b = { ":Telescope file_browser<cr>", "ts file browser" },
                 F = { "(todo: find file in path)" },
                 g = { "(todo: git-tracked files?)" },
                 ["/"] = { function() ts.live_grep{} end, "live grep" },

@@ -15,11 +15,40 @@ return {
                         vertical = {width = 0.8}
                     },
                 },
-                extensions = {
+                extensions = { -- look here for more: https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
                     "ui-select",
+                    cder = {
+                        dir_command = { 'fd', '--type=d', '--hidden', '--glob', '--absolute-path', '.git', '$env:HOME/git', '-x', 'echo', '"{//}"' },
+                    },
+                    whaler = {
+                        -- Whaler configuration
+                        directories = { "~/git", },
+                        -- You may also add directories that will not be searched for subdirectories
+                        oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } },
+                        file_explorer = "telescope_file_browser",
+                    },
+                    file_browser = {
+                    },
                 },
             }
             telescope.load_extension("ui-select")
+            telescope.load_extension("whaler")
+            telescope.load_extension("file_browser")
+
+            vim.keymap.set("n", '<space>fw', function()
+            telescope.extensions.whaler.whaler({
+                auto_file_explorer = true,
+                auto_cwd = false,
+                file_explorer_config = {
+                plugin_name = "telescope",
+                command = "Telescope find_files",
+                prefix_dir = " cwd=",
+                },
+                theme = {
+                previewer = false,
+                },
+                })
+            end, { desc = 'projects -> find_files' })
         end,
     },
     { 'nvim-telescope/telescope-fzf-native.nvim',
@@ -41,8 +70,6 @@ return {
                 enable_git_status = true,
                 enable_diagnostics = true,
                 use_libuv_file_watcher = true,
-                log_level = "trace",
-                log_to_file = "true",
                 sources = {
                     "filesystem",
                     "buffers",
@@ -101,10 +128,10 @@ return {
                     },
                 },
             }
-            if GLOBAL_TRACE==true then
+            if GLOBAL_TRACE == true then
                 -- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Troubleshooting
                 options.log_level = "trace"
-                options.log_to_file = true
+                options.log_to_file = "neo-tree.log"
                 vim.keymap.set('n', '<space>Ntt', function() neotree.show_logs() end, { desc = "neo-tree trace log", noremap=true, silent=true })
             end
             neotree.setup(options)
@@ -160,5 +187,10 @@ return {
             vim.keymap.set(modes, 's', '<Plug>(leap-forward-to)')
             vim.keymap.set(modes, 'S', '<Plug>(leap-backward-to)')
         end,
+    },
+    "salorak/whaler.nvim",
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     }
 }
