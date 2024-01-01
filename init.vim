@@ -110,7 +110,7 @@ endfunction
 set showtabline=2 " always show tabline
 
 let g:lightline = {
-      \ 'colorscheme': 'landscape',
+            \ 'colorscheme': 'catppuccin',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'relativepath', 'modified' ], [  ] ],
@@ -164,12 +164,11 @@ if has("win32") || has ("win16")
     let &shellquote   = ''
     let &shellpipe    = '| Out-File -Encoding UTF8 %s'
     let &shellredir   = '| Out-File -Encoding UTF8 %s'
-    set termguicolors
+    set termguicolors " always set this on windows, and only use terminals that support it.
 
 else
     if $COLORTERM == "truecolor"
         set termguicolors
-        colorscheme witchhazel-hypercolor-viv
     endif
 endif
 

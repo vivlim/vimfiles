@@ -59,10 +59,6 @@ return {
 -- Automatically use it when target file is not readable or writable
 -- let g:suda_smart_edit = 1
 
-"itchyny/lightline.vim", -- status line
-{ "vivlim/witchhazel",
-    branch = "scratch",
-},
 "mbbill/undotree",
 "majutsushi/tagbar",
 "sbdchd/neoformat",
