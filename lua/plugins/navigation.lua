@@ -37,10 +37,12 @@ return {
         },
         init = function()
             local neotree = require("neo-tree")
-            neotree.setup {
+            local options = {
                 enable_git_status = true,
                 enable_diagnostics = true,
                 use_libuv_file_watcher = true,
+                log_level = "trace",
+                log_to_file = "true",
                 sources = {
                     "filesystem",
                     "buffers",
@@ -99,6 +101,13 @@ return {
                     },
                 },
             }
+            if GLOBAL_TRACE==true then
+                -- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Troubleshooting
+                options.log_level = "trace"
+                options.log_to_file = true
+                vim.keymap.set('n', '<space>Ntt', function() neotree.show_logs() end, { desc = "neo-tree trace log", noremap=true, silent=true })
+            end
+            neotree.setup(options)
         end,
     },
     { "nvim-tree/nvim-tree.lua",

@@ -37,6 +37,11 @@ return {
             d = { function() ts.diagnostics{} end, "telescope diagnostics" },
             ["<space>"] = { function() ts.resume{} end, "telescope resume" },
             [":"] = { function() ts.builtin{} end, "telescope pickers" },
+            N = {
+                name = "nvim meta",
+                n = { function() require('telescope').extensions.notify.notify() end, "notification history" },
+                t = { name = "plugin traces" },
+            },
         }, { prefix = "<space>" })
         end,
     },
