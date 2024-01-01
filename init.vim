@@ -150,6 +150,8 @@ function! LightlineReadonly()
   return &readonly && &filetype !=# 'help' ? 'RO' : match(expand('%:p'), '^suda://') >= 0 ? "suda" : ''
 endfunction
 
+set termguicolors " just always set this now. I don't think I use any terminals that don't support it
+
 " windows-specific settings
 if has("win32") || has ("win16")
     " on windows, get a fill path from the clipboard, remove quotes, and try to
@@ -164,11 +166,10 @@ if has("win32") || has ("win16")
     let &shellquote   = ''
     let &shellpipe    = '| Out-File -Encoding UTF8 %s'
     let &shellredir   = '| Out-File -Encoding UTF8 %s'
-    set termguicolors " always set this on windows, and only use terminals that support it.
-
+    " set termguicolors
 else
     if $COLORTERM == "truecolor"
-        set termguicolors
+        " set termguicolors
     endif
 endif
 
