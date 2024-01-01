@@ -309,6 +309,7 @@ set foldlevel=3 " automatically open 3 levels of folds
 "lua require’nvim_lsp'.rust_analyzer.setup({})
 
 lua << EOF
+GLOBAL_TRACE=false -- enable tracing for some plugins
 -- begin 'lazy.nvim' package manager
 -- begin bootstrap
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
