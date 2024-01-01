@@ -279,8 +279,9 @@ execute "set guifont=" . $nvim_smallfont
 nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
 nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 
-set winblend=15
-set pumblend=15
+" transparency
+" set winblend=15
+" set pumblend=15
 
 " Map Ctrl-Backspace to delete the previous word in insert mode.
 imap <C-BS> <C-W>
