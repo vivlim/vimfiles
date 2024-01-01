@@ -39,8 +39,19 @@ return {
         })
         vim.cmd.colorscheme "catppuccin"
     end },
-
-    "itchyny/lightline.vim", -- status line
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        init = function()
+            require('lualine').setup {
+                options = {
+                    theme = "catppuccin",
+                    section_separators = { left = '', right = '' },
+                    component_separators = { left = '', right = '' }
+                }
+            }
+        end
+    },
     "HiPhish/rainbow-delimiters.nvim", -- may need to disable if there are errors on older nvim, not sure
 }
 
