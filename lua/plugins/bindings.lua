@@ -43,6 +43,9 @@ return {
                 n = { function() require('telescope').extensions.notify.notify() end, "notification history" },
                 t = { name = "plugin traces" },
             },
+            p = {
+                name = "projects (whaler)",
+            }
         }, { prefix = "<space>" })
         end,
     },

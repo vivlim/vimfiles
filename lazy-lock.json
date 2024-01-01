@@ -44,6 +44,6 @@
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
   "vim-tbone": { "branch": "master", "commit": "79d28199d5edf70337957e13942b5d970755d943" },
-  "whaler.nvim": { "branch": "main", "commit": "7ea55ec0551fcaa487d60ab363708f7a523786f5" },
+  "whaler.nvim": { "branch": "main", "commit": "fb2bdb9b53e8bb07cbc64744311fb1943f00bdbf" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
 }

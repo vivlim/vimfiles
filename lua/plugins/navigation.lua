@@ -21,9 +21,17 @@ return {
                         dir_command = { 'fd', '--type=d', '--hidden', '--glob', '--absolute-path', '.git', '$env:HOME/git', '-x', 'echo', '"{//}"' },
                     },
                     whaler = {
+                        theme = {
+                            results_title = true,
+                            layout_strategy = "center",
+                            layout_config = {
+                                height = 0.7,
+                                width = 0.7,
+                            },
+                        },
                         -- Whaler configuration
                         directories = { "~/git", },
-                        -- You may also add directories that will not be searched for subdirectories
+                        -- directories that will not be searched for subdirectories
                         oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } },
                         file_explorer = "telescope_file_browser",
                     },
@@ -35,20 +43,34 @@ return {
             telescope.load_extension("whaler")
             telescope.load_extension("file_browser")
 
-            vim.keymap.set("n", '<space>fw', function()
-            telescope.extensions.whaler.whaler({
-                auto_file_explorer = true,
-                auto_cwd = true,
-                file_explorer_config = {
-                plugin_name = "telescope",
-                command = "Telescope find_files",
-                prefix_dir = " cwd=",
-                },
-                theme = {
-                previewer = false,
-                },
-                })
-            end, { desc = 'projects -> find_files' })
+            vim.keymap.set("n", '<space>pp', function()
+                telescope.extensions.whaler.whaler({
+                    auto_file_explorer = false,
+                    auto_cwd = true,
+                    })
+            end, { desc = 'cd project' })
+            vim.keymap.set("n", '<space>pf', function()
+                telescope.extensions.whaler.whaler({
+                    auto_file_explorer = true,
+                    auto_cwd = true,
+                    file_explorer_config = {
+                    plugin_name = "telescope",
+                    command = "Telescope find_files",
+                    prefix_dir = " cwd=",
+                    },
+                    })
+            end, { desc = 'cd project -> find_files' })
+            vim.keymap.set("n", '<space>p/', function()
+                telescope.extensions.whaler.whaler({
+                    auto_file_explorer = true,
+                    auto_cwd = true,
+                    file_explorer_config = {
+                    plugin_name = "telescope",
+                    command = "Telescope live_grep",
+                    prefix_dir = " cwd=",
+                    },
+                    })
+            end, { desc = 'cd project -> live_grep' })
         end,
     },
     { 'nvim-telescope/telescope-fzf-native.nvim',
@@ -188,7 +210,7 @@ return {
             vim.keymap.set(modes, 'S', '<Plug>(leap-backward-to)')
         end,
     },
-    "salorak/whaler.nvim",
+    { "vivlim/whaler.nvim" },
     {
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
