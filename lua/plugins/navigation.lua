@@ -38,7 +38,7 @@ return {
             vim.keymap.set("n", '<space>fw', function()
             telescope.extensions.whaler.whaler({
                 auto_file_explorer = true,
-                auto_cwd = false,
+                auto_cwd = true,
                 file_explorer_config = {
                 plugin_name = "telescope",
                 command = "Telescope find_files",
