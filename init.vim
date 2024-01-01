@@ -234,7 +234,7 @@ nnoremap <space>fY :let @+ = expand("%:p")<cr>:echo "yanked file path"<cr>
 nnoremap <space>fn :new<cr>
 
 " cd to current file's directory
-nnoremap <space>cd :lcd %:p:h<cr>:echo "changed working directory to current file path"<cr>
+nnoremap <space>fcd :lcd %:p:h<cr>:echo "changed working directory to current file path"<cr>
 
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
