@@ -17,6 +17,7 @@ return {
                     nvimtree = true,
                     treesitter = true,
                     notify = true,
+                    rainbow_delimiters = true,
                 },
                 color_overrides = {
                     mocha = { -- these are copied from https://github.com/b-ggs/dotfiles/blob/becba14045586db9ee2becf39fbe07f0f8ae0a68/nvim/.config/nvim/init.vim#L203-L237
@@ -40,5 +41,6 @@ return {
     end },
 
     "itchyny/lightline.vim", -- status line
+    "HiPhish/rainbow-delimiters.nvim", -- may need to disable if there are errors on older nvim, not sure
 }
 
