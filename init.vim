@@ -156,10 +156,17 @@ if has("win32") || has ("win16")
     " open it in a split
     nnoremap <space>fo :let<space>@f<space>=<space>substitute(@+,<space>"\"",<space>"",<space>'g')<cr>:sp<space><C-r>f<cr>
 
-else
-    " set theme if we aren't on windows, because there are terminals that have 256 color support...
-    " on windows, defer setting this to gvimrc.
+    " use powershell
+    " https://www.reddit.com/r/neovim/comments/vpnhrl/how_do_i_make_neovim_use_powershell_for_external/iekfbez/
+    set shell=powershell.exe
+    set shellxquote=
+    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+    let &shellquote   = ''
+    let &shellpipe    = '| Out-File -Encoding UTF8 %s'
+    let &shellredir   = '| Out-File -Encoding UTF8 %s'
+    set termguicolors
 
+else
     if $COLORTERM == "truecolor"
         set termguicolors
         colorscheme witchhazel-hypercolor-viv
