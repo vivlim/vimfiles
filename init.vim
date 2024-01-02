@@ -260,18 +260,14 @@ let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 set background=dark
-colorscheme witchhazel-hypercolor-viv
 "set guifont=Fira\ Mono\ for\ Powerline:h14
 "set guifont=CozetteVector:h24
+
+set guifont=ComicCode_Nerd_Font:h10
 
 " read local config if it exists
 if filereadable(expand("~/.nvim_local.vim"))
     source ~/.nvim_local.vim
-endif
-
-if !(exists("$nvim_bigfont") && exists("$nvim_smallfont"))
-    let $nvim_smallfont = "Fira_Mono_for_Powerline:h14"
-    let $nvim_bigfont = "Fira_Mono_for_Powerline:h24"
 endif
 
 if !(exists("$nvim_notes_file"))
@@ -279,11 +275,6 @@ if !(exists("$nvim_notes_file"))
 endif
 
 execute "nnoremap <space>fN :sp " . $nvim_notes_file . "<cr>"
-
-execute "set guifont=" . $nvim_smallfont
-" ctrl - and + to switch font size quickly.
-nnoremap <C--> :execute "set guifont=" . $nvim_smallfont<cr>
-nnoremap <C-=> :execute "set guifont=" . $nvim_bigfont<cr>
 
 " transparency
 " set winblend=15
@@ -331,6 +322,24 @@ require("lazy").setup("plugins", {
 
 -- end 'lazy.nvim' package manager
 
+    if vim.g.neovide then
+        -- neovide-specific lua config
+        vim.g.neovide_scale_factor = 1.0
+        local change_scale_factor = function(delta)
+            vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+            require("notify")("scale changed to " .. vim.g.neovide_scale_factor)
+        end
+        vim.keymap.set("n", "<C-=>", function()
+            change_scale_factor(1.25)
+        end)
+        vim.keymap.set("n", "<C-->", function()
+            change_scale_factor(1/1.25)
+        end)
+        vim.g.neovide_unlink_border_highlights = true
+
+        vim.g.neovide_cursor_animation_length = 0.05
+    end
+
   function copy()
     if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
       require('osc52').copy_register('+')
@@ -338,4 +347,5 @@ require("lazy").setup("plugins", {
   end
 
   vim.api.nvim_create_autocmd('TextYankPost', {callback = copy})
+
 EOF
