@@ -22,7 +22,6 @@ return {
                     },
                     whaler = {
                         theme = {
-                            results_title = true,
                             layout_strategy = "center",
                             layout_config = {
                                 height = 0.7,
@@ -210,9 +209,9 @@ return {
             vim.keymap.set(modes, 'S', '<Plug>(leap-backward-to)')
         end,
     },
-    { "vivlim/whaler.nvim" },
     {
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-    }
+    },
+    { "SalOrak/whaler.nvim" },
 }
