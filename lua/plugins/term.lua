@@ -31,6 +31,13 @@ return {
       end, {
         desc = 'Floating Lazygit',
       })
+      vim.keymap.set({'n', 't'}, '<C-g>', function()
+        floating_lazygit:spawn()
+        ui.toggle_float(floating_lazygit.bufnr)
+        vim.api.nvim_set_option_value("number", false, {buf = floating_lazygit.bufnr})
+      end, {
+        desc = 'Floating Lazygit',
+      })
       vim.keymap.set({'n'}, '<space>tt', '<cmd>:new<cr>:terminal<cr>', {
         desc = 'New window term',
       })
