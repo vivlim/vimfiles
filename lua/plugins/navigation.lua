@@ -11,7 +11,7 @@ return {
             local telescope = require("telescope")
             local whaler_oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } }
             local project_dir_file = vim.fn.resolve(os.getenv("HOME") .. "/.nvim_project_dirs.lua")
-            if vim.fn.filereadable(project_dir_file) then
+            if vim.fn.filereadable(project_dir_file) == 1 then
                 vim.list_extend(whaler_oneoff_directories, dofile(project_dir_file))
             end
 
