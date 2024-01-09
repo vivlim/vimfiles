@@ -8,6 +8,12 @@ return {
         },
         init = function()
             local telescope = require("telescope")
+            local whaler_oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } }
+            local project_dir_file = vim.fn.resolve(os.getenv("HOME").. "/.nvim_project_dirs.lua")
+            if vim.fn.filereadable(project_dir_file) then
+                vim.list_extend(whaler_oneoff_directories, dofile(project_dir_file))
+            end
+
             telescope.setup {
                 defaults = {
                     layout_strategy = 'vertical',
@@ -31,7 +37,7 @@ return {
                         -- Whaler configuration
                         directories = { "~/git", },
                         -- directories that will not be searched for subdirectories
-                        oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } },
+                        oneoff_directories = whaler_oneoff_directories,
                         file_explorer = "telescope_file_browser",
                     },
                     file_browser = {
@@ -42,20 +48,20 @@ return {
             telescope.load_extension("whaler")
             telescope.load_extension("file_browser")
 
-            vim.keymap.set("n", '<space>pp', function()
+            vim.keymap.set("n", '<space>pc', function()
                 telescope.extensions.whaler.whaler({
-                    auto_file_explorer = false,
+                    auto_file_explorer = true,
                     auto_cwd = true,
                     })
             end, { desc = 'cd project' })
-            vim.keymap.set("n", '<space>pf', function()
+            vim.keymap.set("n", '<space>pp', function()
                 telescope.extensions.whaler.whaler({
                     auto_file_explorer = true,
                     auto_cwd = true,
                     file_explorer_config = {
-                    plugin_name = "telescope",
-                    command = "Telescope find_files",
-                    prefix_dir = " cwd=",
+                        plugin_name = "telescope",
+                        command = "Telescope find_files",
+                        prefix_dir = " cwd=",
                     },
                     })
             end, { desc = 'cd project -> find_files' })
@@ -64,9 +70,9 @@ return {
                     auto_file_explorer = true,
                     auto_cwd = true,
                     file_explorer_config = {
-                    plugin_name = "telescope",
-                    command = "Telescope live_grep",
-                    prefix_dir = " cwd=",
+                        plugin_name = "telescope",
+                        command = "Telescope live_grep",
+                        prefix_dir = " cwd=",
                     },
                     })
             end, { desc = 'cd project -> live_grep' })
