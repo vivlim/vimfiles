@@ -1,7 +1,9 @@
 return {
-    {"catppuccin/nvim", name = "catppuccin",
-    init = function()
-        require("catppuccin").setup({
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        init = function()
+            require("catppuccin").setup({
                 flavour = "mocha",
                 term_colors = true,
                 -- transparent_background = true,
@@ -36,22 +38,22 @@ return {
                         crust = "#1a1016",
                     },
                 },
-        })
-        vim.cmd.colorscheme "catppuccin"
-    end },
+            })
+            vim.cmd.colorscheme("catppuccin")
+        end,
+    },
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         init = function()
-            require('lualine').setup {
+            require("lualine").setup({
                 options = {
                     theme = "catppuccin",
-                    section_separators = { left = '', right = '' },
-                    component_separators = { left = '', right = '' }
-                }
-            }
-        end
+                    section_separators = { left = "", right = "" },
+                    component_separators = { left = "", right = "" },
+                },
+            })
+        end,
     },
     "HiPhish/rainbow-delimiters.nvim", -- may need to disable if there are errors on older nvim, not sure
 }
-
