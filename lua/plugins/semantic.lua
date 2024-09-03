@@ -147,7 +147,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        lazy = false,
+        lazy = true,
         init = function()
             local lsp = require("lspconfig")
             -- suggested config from nvim-lspconfig
@@ -217,6 +217,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        lazy = true,
         config = function()
             local configs = require("nvim-treesitter.configs")
 
@@ -243,6 +244,7 @@ return {
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        lazy = true,
         init = function()
             -- Disable virtual_text since it's redundant due to lsp_lines.
             vim.diagnostic.config({
@@ -292,7 +294,10 @@ return {
         "rcarriga/nvim-notify",
         init = function()
             local notify = require("notify")
-            notify.setup({})
+            notify.setup({
+                render = "compact",
+                top_down = false,
+            })
             vim.notify = notify
         end,
     },
