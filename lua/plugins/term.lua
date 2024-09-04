@@ -20,21 +20,21 @@ return {
             vim.keymap.set({ "n", "t" }, "<C-t>", function()
                 floating_term:spawn()
                 ui.toggle_float(floating_term.bufnr)
-                vim.api.nvim_set_option_value("number", false, { buf = floating_term.bufnr })
+                -- vim.api.nvim_set_option_value("number", false, { buf = floating_term.bufnr })
             end, {
                 desc = "Toggle floating window with terminal buffers",
             })
             vim.keymap.set({ "n" }, "<space>tg", function()
                 floating_lazygit:spawn()
                 ui.toggle_float(floating_lazygit.bufnr)
-                vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
+                -- vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
             end, {
                 desc = "Floating Lazygit",
             })
             vim.keymap.set({ "n", "t" }, "<C-g>", function()
                 floating_lazygit:spawn()
                 ui.toggle_float(floating_lazygit.bufnr)
-                vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
+                -- vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
             end, {
                 desc = "Floating Lazygit",
             })
@@ -45,7 +45,7 @@ return {
                 floating_term:spawn()
                 vim.cmd("split")
                 local win = vim.api.nvim_get_current_win()
-                vim.api.nvim_win_set_buf(win, floating_term.bufnr)
+                -- vim.api.nvim_win_set_buf(win, floating_term.bufnr)
             end, {
                 desc = "New win <- floating term",
             })
