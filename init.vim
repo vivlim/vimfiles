@@ -29,6 +29,8 @@ set mouse=a " meese
 
 set clipboard=unnamedplus
 
+filetype plugin on
+
 "set autochdir " chdir to current file
 " different variant to automatically chdir
 "autocmd BufEnter * silent! lcd %:p:h

@@ -149,6 +149,9 @@ return {
         "neovim/nvim-lspconfig",
         lazy = true,
         init = function()
+            -- Install some lsps
+            require("mason").setup()
+            require("mason-lspconfig").setup()
             local lsp = require("lspconfig")
             -- suggested config from nvim-lspconfig
             -- Mappings.
@@ -301,7 +304,7 @@ return {
             vim.notify = notify
         end,
     },
-    { "mrded/nvim-lsp-notify", opts = {} },
+    { "mrded/nvim-lsp-notify",         opts = {} },
     {
         "saecki/crates.nvim",
         tag = "stable",
@@ -386,4 +389,6 @@ return {
             })
         end,
     },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
 }
