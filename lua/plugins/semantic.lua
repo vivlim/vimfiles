@@ -216,7 +216,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
+        -- build = ":TSUpdate",
         lazy = true,
         config = function()
             local configs = require("nvim-treesitter.configs")
@@ -295,7 +295,7 @@ return {
         init = function()
             local notify = require("notify")
             notify.setup({
-                render = "compact",
+                --render = "compact",
                 top_down = false,
             })
             vim.notify = notify
