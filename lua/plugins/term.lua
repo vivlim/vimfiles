@@ -22,6 +22,7 @@ return {
                     local ui = require("bufterm.ui")
 
                     floating_lazygit:spawn()
+                    vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
                     ui.toggle_float(floating_lazygit.bufnr)
                 end,
                 mode = {"n", "t"},
@@ -55,6 +56,7 @@ return {
 
             floating_lazygit = term.Terminal:new({
                 cmd = "lazygit",
+                buflisted = false,
                 auto_close = true,
                 fallback_on_exit = true,
             })

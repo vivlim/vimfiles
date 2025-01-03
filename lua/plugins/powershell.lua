@@ -5,5 +5,10 @@ return {
         opts = {
             bundle_path = vim.fn.stdpath "data" .. "/mason/packages/powershell-editor-services",
         },
+        lazy = true,
+        event = {
+            "BufEnter *.ps1",
+            "BufEnter *.psm",
+        },
     },
 }

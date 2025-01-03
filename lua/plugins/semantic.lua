@@ -147,8 +147,19 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        lazy = false,
-        init = function()
+        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+        -- TODO: replace much of this with https://www.lazyvim.org/plugins/lsp
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
+        keys = {
+            {"<space>e", function() vim.diagnostic.open_float() end, mode = "n", desc = "open diagnostic"},
+            {"[d", function() vim.diagnostic.goto_prev() end, mode = "n", desc = "prev diagnostic"},
+            {"]d", function() vim.diagnostic.goto_next() end, mode = "n", desc = "next diagnostic"},
+            {"<space>q", function() vim.diagnostic.setloclist() end, mode = "n", desc = "diagnostic loc list"},
+        },
+        config = function()
             -- Install some lsps
             require("mason").setup()
             require("mason-lspconfig").setup()
@@ -158,11 +169,7 @@ return {
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
             local opts = { noremap = true, silent = true }
             local capabilities =
-                require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-            vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-            vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-            vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+            require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
             lsp.nil_ls.setup({
                 autostart = true,
@@ -248,12 +255,14 @@ return {
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         lazy = true,
-        init = function()
+        keys = {
+            { "<space>ld", function() require("lsp_lines").toggle() end, mode = "n", desc = "toggle diagnostic lines", },
+        },
+        config = function()
             -- Disable virtual_text since it's redundant due to lsp_lines.
             vim.diagnostic.config({
                 virtual_text = false,
             })
-            vim.keymap.set({ "n" }, "<space>ld", require("lsp_lines").toggle, { desc = "toggle diagnostic lines" })
 
             require("lsp_lines").setup()
         end,
@@ -269,6 +278,10 @@ return {
     {
         "simrat39/rust-tools.nvim",
         lazy = true,
+        event = {
+            "BufEnter *.rs",
+            "BufEnter Cargo.toml",
+        },
         keys = {
             { "<space>VR", "", desc = "Activate rust-tools" },
         },
@@ -315,6 +328,9 @@ return {
         lazy = true,
         tag = "stable",
         dependencies = { "nvim-lua/plenary.nvim" },
+        event = {
+            "BufEnter Cargo.toml",
+        },
         config = function()
             local crates = require("crates")
             crates.setup({
@@ -395,6 +411,4 @@ return {
             })
         end,
     },
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
 }

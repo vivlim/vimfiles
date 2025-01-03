@@ -241,13 +241,6 @@ nnoremap <space>fcd :lcd %:p:h<cr>:echo "changed working directory to current fi
 nnoremap <C-Tab> <C-^>
 nnoremap <space><Tab> <C-^>
 
-" neotree mappings
-nnoremap - :Neotree filesystem reveal=true position=current<cr>
-nnoremap <space>tf :Neotree filesystem reveal=true position=left<cr>
-" end neotree mappings
-
-" previous buffer
-
 " on windows, add 'open path in explorer'
 if has("win32") || has ("win16")
     nnoremap <space>fe :silent !start explorer "%:p:h"<cr>
@@ -350,5 +343,7 @@ require("lazy").setup("plugins", {
   end
 
   vim.api.nvim_create_autocmd('TextYankPost', {callback = copy})
+
+  vim.cmd.colorscheme("catppuccin")
 
 EOF

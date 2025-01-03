@@ -3,7 +3,7 @@ return {
         "hrsh7th/nvim-cmp",
         branch = "main",
         lazy = false,
-        init = function()
+        config = function()
             local cmp = require("cmp")
 
             cmp.setup({

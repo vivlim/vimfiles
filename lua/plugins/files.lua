@@ -12,6 +12,10 @@ return {
                 -- "mtime",
             },
             watch_for_changes = true,
+            view_options = {
+                show_hidden = true,
+                case_insensitive = vim.fn.has("win32")
+            },
         },
         keys = {
             {

@@ -2,7 +2,7 @@ return {
     {
         "folke/which-key.nvim",
         lazy = false,
-        init = function()
+        config = function()
             local wk = require("which-key")
 
             wk.setup({

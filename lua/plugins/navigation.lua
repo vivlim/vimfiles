@@ -25,7 +25,7 @@ return {
             {"<space>g/", function() require("telescope.builtin").git_bcommits({}) end, mode = "n", desc = "telescope buffer commits"},
             {"<space>gb", function() require("telescope.builtin").git_branches({}) end, mode = "n", desc = "telescope branches"},
         },
-        init = function()
+        config = function()
             local telescope = require("telescope")
             local whaler_oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } }
             -- Don't assume that HOME is always set, it might not be on windows.
@@ -129,8 +129,9 @@ return {
         },
         keys = {
             {"<space>ft", ":Neotree filesystem reveal=true position=left<cr>", mode = "n", desc = "file tree"},
+            {"-", ":Neotree filesystem reveal=true position=current<cr>", mode = "n", desc = "file tree"},
         },
-        init = function()
+        config = function()
             local neotree = require("neo-tree")
             local options = {
                 enable_git_status = true,
@@ -213,7 +214,7 @@ return {
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        init = function()
+        config = function()
             -- disable netrw
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
@@ -248,7 +249,7 @@ return {
     },
     {
         "ggandor/leap.nvim", -- https://github.com/ggandor/leap.nvim
-        init = function()
+        config = function()
             local leap = require("leap")
             local modes = { "n", "x", "o" }
             leap.add_default_mappings()
@@ -258,9 +259,16 @@ return {
     },
     {
         "nvim-telescope/telescope-file-browser.nvim",
+        lazy = true,
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     },
-    { "SalOrak/whaler.nvim" },
+    {
+        "SalOrak/whaler.nvim",
+        keys = {
+        },
+        config = function()
+        end,
+    },
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },

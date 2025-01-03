@@ -1,6 +1,17 @@
 return {
     "tpope/vim-fugitive",
-    "rhysd/git-messenger.vim",
+    {
+        "rhysd/git-messenger.vim",
+        lazy = true,
+        keys = {
+            {
+                "<space>gm",
+                "<cmd>GitMessenger<cr>",
+                mode = "n",
+                desc = "Show commit msg",
+            },
+        },
+    },
     {
         "aaronhallaert/advanced-git-search.nvim",
         lazy = true,
@@ -63,9 +74,9 @@ return {
     },
     {
         "sindrets/diffview.nvim",
-        config = function()
-            require("diffview").setup({})
-            vim.keymap.set("n", "<space>fgh", ":DiffviewFileHistory %<cr>", { desc = "git file history diffview" })
-        end,
+        lazy = true,
+        keys = {
+            {"<space>fgh", ":DiffviewFileHistory %<cr>", mode = "n", desc = "git file history diffview"},
+        },
     },
 }
