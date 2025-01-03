@@ -305,19 +305,11 @@ return {
         },
     },
     {
-        "rcarriga/nvim-notify",
-        init = function()
-            local notify = require("notify")
-            notify.setup({
-                render = "wrapped-compact",
-                stages = "slide", -- todo: detect running over ssh / in tmux and switch to 'static'
-                -- top_down = false,
-                timeout = 2300,
-            })
-            vim.notify = notify
-        end,
+        "j-hui/fidget.nvim",
+        opts = {
+            -- options
+        },
     },
-    { "mrded/nvim-lsp-notify",         opts = {} },
     {
         "saecki/crates.nvim",
         lazy = true,
