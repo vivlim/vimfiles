@@ -147,7 +147,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        lazy = true,
+        lazy = false,
         init = function()
             -- Install some lsps
             require("mason").setup()
