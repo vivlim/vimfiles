@@ -258,9 +258,20 @@ return {
             require("lsp_lines").setup()
         end,
     },
-    { "simrat39/symbols-outline.nvim", opts = {} },
+    {
+        "simrat39/symbols-outline.nvim",
+        lazy = true,
+        keys = {
+            { "<space>S", "<cmd>:SymbolsOutline<CR>", desc = "tgl symbols outline" },
+        },
+        opts = {}
+    },
     {
         "simrat39/rust-tools.nvim",
+        lazy = true,
+        keys = {
+            { "<space>VR", "", desc = "Activate rust-tools" },
+        },
         opts = {
             tools = {
                 hover_actions = {
@@ -298,8 +309,10 @@ return {
         init = function()
             local notify = require("notify")
             notify.setup({
-                --render = "compact",
-                top_down = false,
+                render = "wrapped-compact",
+                stages = "slide", -- todo: detect running over ssh / in tmux and switch to 'static'
+                -- top_down = false,
+                timeout = 2300,
             })
             vim.notify = notify
         end,
@@ -307,6 +320,7 @@ return {
     { "mrded/nvim-lsp-notify",         opts = {} },
     {
         "saecki/crates.nvim",
+        lazy = true,
         tag = "stable",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()

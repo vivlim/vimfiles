@@ -54,7 +54,7 @@ return {
     "rbong/vim-flog",
 
     -- Read or write files using sudo
-    "lambdalisue/suda.vim",
+    -- "lambdalisue/suda.vim",
     -- Automatically use it when target file is not readable or writable
     -- let g:suda_smart_edit = 1
 
