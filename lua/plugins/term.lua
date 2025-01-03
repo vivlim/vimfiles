@@ -22,8 +22,13 @@ return {
                     local ui = require("bufterm.ui")
 
                     floating_lazygit:spawn()
-                    vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
                     ui.toggle_float(floating_lazygit.bufnr)
+                    if floating_lazygit.bufnr > 0 then
+                        local winid = vim.fn.bufwinid(floating_lazygit.bufnr)
+                        if winid >= 0 then
+                            vim.api.nvim_set_option_value("number", false, { win = winid })
+                        end
+                    end
                 end,
                 mode = {"n", "t"},
                 desc = "toggle floating lazygit",
