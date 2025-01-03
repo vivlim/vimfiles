@@ -3,6 +3,39 @@ return {
     "rhysd/git-messenger.vim",
     {
         "aaronhallaert/advanced-git-search.nvim",
+        lazy = true,
+        keys = {
+            {
+                "<space>g",
+                ":'<,'>AdvancedGitSearch diff_commit_line<cr>",
+                mode = "v",
+                desc = "git line history",
+            },
+            {
+                "<space>g/",
+                ":AdvancedGitSearch search_log_content<cr>",
+                mode = "n",
+                desc = "search git history msgs",
+            },
+            {
+                "<space>g?",
+                ":AdvancedGitSearch search_log_content_file<cr>",
+                mode = "n",
+                desc = "search git history by content",
+            },
+            {
+                "<space>fg/",
+                ":AdvancedGitSearch diff_commit_file<cr>",
+                mode = "n",
+                desc = "git file history telescope",
+            },
+            {
+                "<space>fgb",
+                ":AdvancedGitSearch diff_branch_file<cr>",
+                mode = "n",
+                desc = "git diff file with other branch",
+            },
+        },
         config = function()
             -- optional: setup telescope before loading the extension
             require("telescope").setup({
@@ -16,36 +49,6 @@ return {
 
             require("telescope").load_extension("advanced_git_search")
 
-            vim.keymap.set(
-                "v",
-                "<space>g",
-                ":'<,'>AdvancedGitSearch diff_commit_line<cr>",
-                { desc = "git line history" }
-            )
-            vim.keymap.set(
-                "n",
-                "<space>g/",
-                ":AdvancedGitSearch search_log_content<cr>",
-                { desc = "search git history msgs" }
-            )
-            vim.keymap.set(
-                "n",
-                "<space>g?",
-                ":AdvancedGitSearch search_log_content_file<cr>",
-                { desc = "search git history by content" }
-            )
-            vim.keymap.set(
-                "n",
-                "<space>fg/",
-                ":AdvancedGitSearch diff_commit_file<cr>",
-                { desc = "git file history telescope" }
-            )
-            vim.keymap.set(
-                "n",
-                "<space>fgb",
-                ":AdvancedGitSearch diff_branch_file<cr>",
-                { desc = "git diff file with other branch" }
-            )
         end,
         dependencies = {
             "nvim-telescope/telescope.nvim",

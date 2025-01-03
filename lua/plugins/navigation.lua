@@ -7,6 +7,24 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
         },
+        lazy = true,
+        keys = {
+            {"<space>ff", function() require("telescope.builtin").find_files({}) end, mode = "n", desc = "find file"},
+            {"<space>fb", "<cmd>Telescope file_browser<cr>", mode = "n", desc = "ts file browser"},
+            {"<space>f/", function() require("telescope.builtin").live_grep({}) end, mode = "n", desc = "live grep"},
+            {"<space>rf", function() require("telescope.builtin").oldfiles({}) end, mode = "n", desc = "files"},
+            {"<space>r:", function() require("telescope.builtin").command_history({}) end, mode = "n", desc = "commands"},
+            {"<space>r/", function() require("telescope.builtin").search_history({}) end, mode = "n", desc = "searches"},
+            {"<space>/", function() require("telescope.builtin").current_buffer_fuzzy_find({}) end, mode = "n", desc = "current buffer fzf"},
+            {"<space>b", function() require("telescope.builtin").buffers({}) end, mode = "n", desc = "telescope buffers"},
+            {"<space>d", function() require("telescope.builtin").diagnostics({}) end, mode = "n", desc = "telescope diagnostics"},
+            {"<space><space>", function() require("telescope.builtin").resume({}) end, mode = "n", desc = "telescope resume"},
+            {"<space>:", function() require("telescope.builtin").builtin({}) end, mode = "n", desc = "telescope pickers"},
+            -- notify history - i switched plugins so this doesn't work atm {"<space>Nn", function() require("telescope").extensions.notify.notify() end, mode = "n", desc = "telescope pickers"},
+            {"<space>g?", function() require("telescope.builtin").git_commits({}) end, mode = "n", desc = "telescope commits"},
+            {"<space>g/", function() require("telescope.builtin").git_bcommits({}) end, mode = "n", desc = "telescope buffer commits"},
+            {"<space>gb", function() require("telescope.builtin").git_branches({}) end, mode = "n", desc = "telescope branches"},
+        },
         init = function()
             local telescope = require("telescope")
             local whaler_oneoff_directories = { { path = vim.fs.dirname(os.getenv("MYVIMRC")), alias = "nvim" } }
@@ -102,11 +120,15 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         enabled = true,
+        lazy = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        },
+        keys = {
+            {"<space>ft", ":Neotree filesystem reveal=true position=left<cr>", mode = "n", desc = "file tree"},
         },
         init = function()
             local neotree = require("neo-tree")

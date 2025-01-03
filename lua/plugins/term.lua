@@ -1,6 +1,48 @@
 return {
     {
         "boltlessengineer/bufterm.nvim",
+        lazy = true,
+        keys = {
+            {
+                "<C-t>",
+                function()
+                    local term = require("bufterm.terminal")
+                    local ui = require("bufterm.ui")
+
+                    floating_term:spawn()
+                    ui.toggle_float(floating_term.bufnr)
+                end,
+                mode = {"n", "t"},
+                desc = "toggle floating terminal",
+            },
+            {
+                "<C-g>",
+                function()
+                    local term = require("bufterm.terminal")
+                    local ui = require("bufterm.ui")
+
+                    floating_lazygit:spawn()
+                    ui.toggle_float(floating_lazygit.bufnr)
+                end,
+                mode = {"n", "t"},
+                desc = "toggle floating lazygit",
+            },
+            {"<space>tt", "<cmd>:new<cr>:terminal<cr>", mode = "n", desc = "new window term"},
+            {
+                "<space>tT",
+                function()
+                    local term = require("bufterm.terminal")
+                    local ui = require("bufterm.ui")
+
+                    floating_term:spawn()
+                    vim.cmd("split")
+                    local win = vim.api.nvim_get_current_win()
+                    vim.api.nvim_win_set_buf(win, floating_term.bufnr)
+                end,
+                mode = "n",
+                desc = "new window showing floating term",
+            },
+        },
         init = function()
             -- no line numbers in terminals.
             vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
@@ -9,45 +51,12 @@ return {
             local term = require("bufterm.terminal")
             local ui = require("bufterm.ui")
 
-            local floating_term = term.Terminal:new({})
+            floating_term = term.Terminal:new({})
 
-            local floating_lazygit = term.Terminal:new({
+            floating_lazygit = term.Terminal:new({
                 cmd = "lazygit",
                 auto_close = true,
                 fallback_on_exit = true,
-            })
-
-            vim.keymap.set({ "n", "t" }, "<C-t>", function()
-                floating_term:spawn()
-                ui.toggle_float(floating_term.bufnr)
-                -- vim.api.nvim_set_option_value("number", false, { buf = floating_term.bufnr })
-            end, {
-                desc = "Toggle floating window with terminal buffers",
-            })
-            vim.keymap.set({ "n" }, "<space>tg", function()
-                floating_lazygit:spawn()
-                ui.toggle_float(floating_lazygit.bufnr)
-                -- vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
-            end, {
-                desc = "Floating Lazygit",
-            })
-            vim.keymap.set({ "n", "t" }, "<C-g>", function()
-                floating_lazygit:spawn()
-                ui.toggle_float(floating_lazygit.bufnr)
-                -- vim.api.nvim_set_option_value("number", false, { buf = floating_lazygit.bufnr })
-            end, {
-                desc = "Floating Lazygit",
-            })
-            vim.keymap.set({ "n" }, "<space>tt", "<cmd>:new<cr>:terminal<cr>", {
-                desc = "New window term",
-            })
-            vim.keymap.set({ "n" }, "<space>tT", function()
-                floating_term:spawn()
-                vim.cmd("split")
-                local win = vim.api.nvim_get_current_win()
-                -- vim.api.nvim_win_set_buf(win, floating_term.bufnr)
-            end, {
-                desc = "New win <- floating term",
             })
         end,
     },
