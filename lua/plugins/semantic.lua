@@ -124,24 +124,6 @@ local lsp_on_attach = function(client, bufnr)
             name = "lsp",
         },
     }, { prefix = "<space>" })
-
-    -- Notify when a LSP message is received: https://www.reddit.com/r/neovim/comments/sxlkua/what_are_some_good_nvimnotify_use_cases/hxtedzz/
-    vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
-        local lsp_client = vim.lsp.get_client_by_id(ctx.client_id)
-        local lvl = ({
-            "ERROR",
-            "WARN",
-            "INFO",
-            "DEBUG",
-        })[result.type]
-        require("notify")({ result.message }, lvl, {
-            title = "LSP | " .. lsp_client.name,
-            timeout = 10000,
-            keep = function()
-                return lvl == "ERROR" or lvl == "WARN"
-            end,
-        })
-    end
 end
 
 return {
@@ -163,32 +145,49 @@ return {
             -- Install some lsps
             require("mason").setup()
             require("mason-lspconfig").setup()
-            local lsp = require("lspconfig")
-            -- suggested config from nvim-lspconfig
-            -- Mappings.
-            -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-            local opts = { noremap = true, silent = true }
-            local capabilities =
-            require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+            require("mason-lspconfig").setup_handlers {
+                -- The first entry (without a key) will be the default handler
+                -- and will be called for each installed server that doesn't have
+                -- a dedicated handler.
+                function (server_name) -- default handler (optional)
+                    local capabilities =
+                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                    require("lspconfig")[server_name].setup({
+                        on_attach = lsp_on_attach,
+                        capabilities = capabilities,
+                    })
+                end,
+                -- Next, you can provide a dedicated handler for specific servers.
+                ["nil_ls"] = function ()
+                    local capabilities =
+                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                    require("lspconfig").nil_ls.setup({
+                        on_attach = lsp_on_attach,
+                        capabilities = capabilities,
+                    })
+                end,
+                ["elixirls"] = function ()
+                    local capabilities =
+                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                    require("lspconfig").elixirls.setup({
+                        on_attach = lsp_on_attach,
+                        capabilities = capabilities,
+                        cmd = { "elixir-ls" }, -- This should be on the path if the project has a nix flake devshell & direnv configured.
+                    })
+                end,
+                ["rust_analyzer"] = function ()
+                    local capabilities =
+                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+                    require("lspconfig").rust_analyzer.setup({
+                        on_attach = lsp_on_attach,
+                        capabilities = capabilities,
+                    })
+                end,
+            }
 
-            lsp.nil_ls.setup({
-                autostart = true,
-                on_attach = lsp_on_attach,
-                capabilities = capabilities,
-            })
-            -- lsp.rust_analyzer.setup{
-            --     on_attach = on_attach,
-            --     capabilities = capabilities,
-            --     settings = {
-            --         ["rust-analyzer"] = {}
-            --     }
-            -- }
-            lsp.elixirls.setup({
-                on_attach = lsp_on_attach,
-                capabilities = capabilities,
-                cmd = { "elixir-ls" }, -- This should be on the path if the project has a nix flake devshell & direnv configured.
-            })
-            lsp.lua_ls.setup({
+            local capabilities =
+                require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+            require("lspconfig").lua_ls.setup({
                 on_attach = lsp_on_attach,
                 capabilities = capabilities,
                 on_init = function(client)
@@ -222,6 +221,7 @@ return {
                     return true
                 end,
             })
+
         end,
     },
     {
@@ -411,4 +411,80 @@ return {
             })
         end,
     },
+    {
+        "nvim-lua/lsp-status.nvim",
+    },
+    {
+        'stevearc/aerial.nvim',
+        opts = {
+            attach_mode = "global",
+            open_automatic = true,
+            show_guides = true,
+
+            nav = {
+                win_opts = {
+                    winblend = 0,
+                },
+                autojump = true,
+                keymaps = {
+                    ["<CR>"] = "actions.jump",
+                    ["<2-LeftMouse>"] = "actions.jump",
+                    ["<C-v>"] = "actions.jump_vsplit",
+                    ["<C-s>"] = "actions.jump_split",
+                    ["h"] = "actions.left",
+                    ["l"] = "actions.right",
+                    ["<C-c>"] = "actions.close",
+                    ["<ESC>"] = "actions.close",
+                },
+            },
+        },
+        keys = {
+            {"<space>lo", "<cmd>AerialToggle<cr>", mode = "n", desc = "aerial.nvim outline"},
+            {"<C-j>", "<cmd>AerialNext<cr>", mode = "n", desc = "aerial.nvim next symbol"},
+            {"<C-k>", "<cmd>AerialPrev<cr>", mode = "n", desc = "aerial.nvim prev symbol"},
+            {"<space>ln", "<cmd>AerialNavToggle<cr>", mode = "n", desc = "aerial.nvim nav"},
+            {"<space>s", function() require("telescope").extensions.aerial.aerial() end, mode = "n", desc = "telescope aerial symbols"},
+        },
+        -- Optional dependencies
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+    },
+    {
+        "lewis6991/hover.nvim",
+        keys = {
+            {"K", function() require("hover").hover() end, mode = "n", desc = "open hover.nvim"},
+            {"<MouseMove>", function() require("hover").hover_mouse() end, mode = "n", desc = "hover.nvim (mouse)"},
+            {"<C-k>", function() require("hover").hover() end, mode = "i", desc = "open hover.nvim"},
+            {"gK", function() require("hover").hover_select() end, mode = "n", desc = "hover.nvim (select source)"},
+        },
+        config = function()
+            require("hover").setup {
+                init = function()
+                    -- Require providers
+                    require("hover.providers.lsp")
+                    -- require('hover.providers.gh')
+                    -- require('hover.providers.gh_user')
+                    -- require('hover.providers.jira')
+                    -- require('hover.providers.dap')
+                    require('hover.providers.fold_preview')
+                    require('hover.providers.diagnostic')
+                    require('hover.providers.man')
+                    require('hover.providers.dictionary')
+                end,
+                preview_opts = {
+                    border = 'single'
+                },
+                -- Whether the contents of a currently open hover window should be moved
+                -- to a :h preview-window when pressing the hover keymap.
+                preview_window = true,
+                title = true,
+                mouse_providers = {
+                    'LSP'
+                },
+                mouse_delay = 400
+            }
+        end
+    }
 }

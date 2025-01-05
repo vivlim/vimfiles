@@ -13,8 +13,8 @@ return {
         "Wansmer/treesj",
         keys = {
             "<space>m",
-            "<space>j",
-            "<space>s",
+            -- "<space>j",
+            -- "<space>s",
         },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
@@ -79,5 +79,30 @@ return {
                 desc = "Re-enable autoformat-on-save",
             })
         end,
+    },
+    {
+        'nvim-pack/nvim-spectre',
+        keys = {
+            {
+                "<leader>E",
+                desc = "bulk editing",
+            },
+            {
+                "<leader>Er",
+                function()
+                    require("spectre").toggle()
+                end,
+                mode = "n",
+                desc = "spectre: find and replace",
+            },
+            {
+                "<leader>Ew",
+                function()
+                    require("spectre").open_visual({select_word=true})
+                end,
+                mode = "n",
+                desc = "spectre: current word",
+            },
+        },
     },
 }

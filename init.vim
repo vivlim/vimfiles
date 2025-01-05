@@ -26,6 +26,7 @@ set timeoutlen=500
 set exrc " execute ./.nvim.lua, ./.nvimrc, ./.exrc when `:trust`ed.
 
 set mouse=a " meese
+set mousemoveevent " handle mouse move events, enabling hover.nvim to work
 
 set clipboard=unnamedplus
 
