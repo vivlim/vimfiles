@@ -27,6 +27,7 @@ set exrc " execute ./.nvim.lua, ./.nvimrc, ./.exrc when `:trust`ed.
 
 set mouse=a " meese
 set mousemoveevent " handle mouse move events, enabling hover.nvim to work
+set mousemodel=extend " instead of showing a context menu on right click, extend selection
 
 set clipboard=unnamedplus
 
