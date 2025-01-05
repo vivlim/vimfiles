@@ -486,5 +486,31 @@ return {
                 mouse_delay = 400
             }
         end
-    }
+    },
+    {
+        'ldelossa/litee.nvim',
+        event = "VeryLazy",
+        opts = {
+            notify = { enabled = false },
+            panel = {
+                orientation = "bottom",
+                panel_size = 12,
+            },
+        },
+        config = function(_, opts) require('litee.lib').setup(opts) end
+    },
+    {
+        'ldelossa/litee-calltree.nvim',
+        dependencies = 'ldelossa/litee.nvim',
+        keys = {
+            {"<space>lci", function() vim.lsp.buf.incoming_calls() end, mode = "n", desc = "incoming calls"},
+            {"<space>lco", function() vim.lsp.buf.outgoing_calls() end, mode = "n", desc = "outgoing calls"},
+        },
+        event = "VeryLazy",
+        opts = {
+            on_open = "panel",
+            map_resize_keys = false,
+        },
+        config = function(_, opts) require('litee.calltree').setup(opts) end
+    },
 }
