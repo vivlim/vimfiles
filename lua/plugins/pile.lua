@@ -65,10 +65,6 @@ return {
 
     -- "nvim-telescope/telescope-fzf-native.nvim", { 'branch': 'main', 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' } -- TODO migration
 
-    -- For luasnip users.
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-
     "gpanders/vim-oldfiles",
 
     "ojroques/nvim-osc52",
