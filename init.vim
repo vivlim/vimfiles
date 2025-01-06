@@ -164,7 +164,7 @@ if has("win32") || has ("win16")
 
     " use powershell
     " https://www.reddit.com/r/neovim/comments/vpnhrl/how_do_i_make_neovim_use_powershell_for_external/iekfbez/
-    set shell=powershell.exe
+    set shell=pwsh.exe
     set shellxquote=
     let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
     let &shellquote   = ''
