@@ -33,5 +33,19 @@ return {
                 },
             }, { prefix = "<space>" })
         end,
+        keys = {
+            {
+                "<c-w><space>",
+                function()
+                    require('which-key').show({
+                        keys = "<c-w>",
+                        loop = true,
+                    })
+                end,
+                mode = { "n", "t" },
+                desc = "loop",
+
+            },
+        },
     },
 }
