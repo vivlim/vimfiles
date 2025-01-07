@@ -56,7 +56,7 @@ else
     let $VIMFILESDIR=$HOME.'/.nvim'
 endif
 
-let g:mapleader = "\<Space>"
+" let g:mapleader = "\<Space>"
 "nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 
 filetype plugin indent on    " required
