@@ -31,6 +31,12 @@ set mousemodel=extend " instead of showing a context menu on right click, extend
 
 set clipboard=unnamedplus
 
+" disable providers i don't use?
+let g:loaded_node_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_python_provider = 0
+let g:loaded_ruby_provider = 0
+
 filetype plugin on
 
 "set autochdir " chdir to current file
