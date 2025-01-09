@@ -39,6 +39,14 @@ let g:loaded_ruby_provider = 0
 
 filetype plugin on
 
+
+" begin custom commands
+" note: not supported in vsvim: https://github.com/VsVim/VsVim/issues/3034
+" that would be a nice gap to fill
+" :Prefix will prepend a prefix to a range of lines
+command! -nargs=1 -range Prefix :<line1>,<line2>s/^/<args>/|:noh
+" end custom commands
+
 "set autochdir " chdir to current file
 " different variant to automatically chdir
 "autocmd BufEnter * silent! lcd %:p:h
