@@ -162,7 +162,7 @@ return {
                 -- TODO: Tab to accept
                 -- or maybe not, i'll see if i can get used to it.
                 keymap = {
-                    recommended = true,
+                    recommended = false,
                 },
             }
 
