@@ -102,7 +102,7 @@ filetype on
 filetype plugin on
 filetype indent on
 
-set pastetoggle=<F2>
+" set pastetoggle=<F2> " nvim is no longer compatible with this, i guess?
 nnoremap <leader>< :cpf<cr>
 nnoremap <leader>> :cnf<cr>
 
