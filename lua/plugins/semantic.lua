@@ -127,102 +127,25 @@ local lsp_on_attach = function(client, bufnr)
 end
 
 return {
+--            {"<space>e", function() vim.diagnostic.open_float() end, mode = "n", desc = "open diagnostic"},
+--            {"[d", function() vim.diagnostic.goto_prev() end, mode = "n", desc = "prev diagnostic"},
+--            {"]d", function() vim.diagnostic.goto_next() end, mode = "n", desc = "next diagnostic"},
+--            {"<space>q", function() vim.diagnostic.setloclist() end, mode = "n", desc = "diagnostic loc list"},
     {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-        -- TODO: replace much of this with https://www.lazyvim.org/plugins/lsp
+        "mason-org/mason-lspconfig.nvim",
+        opts = {
+            --ensure_installed = { "lua_ls", "rust_analyzer" },
+            automatic_enable = {
+                "lua_ls",
+                "pyright",
+                "vimls",
+                "bashls",
+            },
+        },
         dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
         },
-        keys = {
-            {"<space>e", function() vim.diagnostic.open_float() end, mode = "n", desc = "open diagnostic"},
-            {"[d", function() vim.diagnostic.goto_prev() end, mode = "n", desc = "prev diagnostic"},
-            {"]d", function() vim.diagnostic.goto_next() end, mode = "n", desc = "next diagnostic"},
-            {"<space>q", function() vim.diagnostic.setloclist() end, mode = "n", desc = "diagnostic loc list"},
-        },
-        config = function()
-            -- Install some lsps
-            require("mason").setup()
-            require("mason-lspconfig").setup()
-            require("mason-lspconfig").setup_handlers {
-                -- The first entry (without a key) will be the default handler
-                -- and will be called for each installed server that doesn't have
-                -- a dedicated handler.
-                function (server_name) -- default handler (optional)
-                    local capabilities =
-                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-                    require("lspconfig")[server_name].setup({
-                        on_attach = lsp_on_attach,
-                        capabilities = capabilities,
-                    })
-                end,
-                -- Next, you can provide a dedicated handler for specific servers.
-                ["nil_ls"] = function ()
-                    local capabilities =
-                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-                    require("lspconfig").nil_ls.setup({
-                        on_attach = lsp_on_attach,
-                        capabilities = capabilities,
-                    })
-                end,
-                ["elixirls"] = function ()
-                    local capabilities =
-                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-                    require("lspconfig").elixirls.setup({
-                        on_attach = lsp_on_attach,
-                        capabilities = capabilities,
-                        cmd = { "elixir-ls" }, -- This should be on the path if the project has a nix flake devshell & direnv configured.
-                    })
-                end,
-                ["rust_analyzer"] = function ()
-                    local capabilities =
-                        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-                    require("lspconfig").rust_analyzer.setup({
-                        on_attach = lsp_on_attach,
-                        capabilities = capabilities,
-                    })
-                end,
-            }
-
-            local capabilities =
-                require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-            require("lspconfig").lua_ls.setup({
-                on_attach = lsp_on_attach,
-                capabilities = capabilities,
-                on_init = function(client)
-                    local path = client.workspace_folders[1].name
-                    if
-                        not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
-                    then
-                        client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-                            Lua = {
-                                runtime = {
-                                    -- Tell the language server which version of Lua you're using
-                                    -- (most likely LuaJIT in the case of Neovim)
-                                    version = "LuaJIT",
-                                },
-                                -- Make the server aware of Neovim runtime files
-                                workspace = {
-                                    checkThirdParty = false,
-                                    library = {
-                                        vim.env.VIMRUNTIME,
-                                        -- "${3rd}/luv/library"
-                                        -- "${3rd}/busted/library",
-                                    },
-                                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                                    -- library = vim.api.nvim_get_runtime_file("", true)
-                                },
-                            },
-                        })
-
-                        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-                    end
-                    return true
-                end,
-            })
-
-        end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -244,6 +167,7 @@ return {
                     "typescript",
                     "html",
                     "rust",
+                    "python",
                     "nix",
                 },
                 sync_install = false,
