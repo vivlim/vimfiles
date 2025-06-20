@@ -96,9 +96,9 @@ return {
             default_file_explorer = true,
             columns = {
                 "icon",
-                -- "permissions",
-                -- "size",
-                -- "mtime",
+                "permissions",
+                "size",
+                "mtime",
             },
             watch_for_changes = true,
             view_options = {

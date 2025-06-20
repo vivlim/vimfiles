@@ -7,7 +7,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
         },
-        lazy = true,
+        lazy = false,
         keys = {
             {"<space>ff", function() require("telescope.builtin").find_files({}) end, mode = "n", desc = "find file"},
             {"<space>fb", "<cmd>Telescope file_browser<cr>", mode = "n", desc = "ts file browser"},
